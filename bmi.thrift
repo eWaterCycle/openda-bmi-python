@@ -58,6 +58,8 @@ service BMI {
     void set_value (1:string long_var_name, 2:binary src);
     
     void set_value_at_indices (1:string long_var_name, 2:list<i32> inds, 3:binary src);
+    
+    BmiGridType get_grid_type(1:string long_var_name);
 }
 
 service BmiRaster extends BMI {

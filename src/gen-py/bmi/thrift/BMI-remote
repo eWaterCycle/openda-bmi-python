@@ -41,6 +41,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print '  string get_value_at_indices(string long_var_name,  inds)'
   print '  void set_value(string long_var_name, string src)'
   print '  void set_value_at_indices(string long_var_name,  inds, string src)'
+  print '  BmiGridType get_grid_type(string long_var_name)'
   print ''
   sys.exit(0)
 
@@ -199,6 +200,12 @@ elif cmd == 'set_value_at_indices':
     print 'set_value_at_indices requires 3 args'
     sys.exit(1)
   pp.pprint(client.set_value_at_indices(args[0],eval(args[1]),args[2],))
+
+elif cmd == 'get_grid_type':
+  if len(args) != 1:
+    print 'get_grid_type requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.get_grid_type(args[0],))
 
 else:
   print 'Unrecognized method %s' % cmd

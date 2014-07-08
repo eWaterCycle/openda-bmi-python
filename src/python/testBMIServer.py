@@ -12,7 +12,7 @@ from thrift.server import TServer
 from bmi.thrift.BmiRaster import Iface
 from bmi.thrift.BmiRaster import Processor
 from BMI_impl import Model
-from bmi.thrift.ttypes import ModelException
+from bmi.thrift.ttypes import ModelException, BmiGridType
 
 class RasterModelHandler(Iface):
 
@@ -24,6 +24,10 @@ class RasterModelHandler(Iface):
         Parameters:
          - file
         """
+        
+        if config_file is None or config_file == "":
+            config_file = None
+        
         try:
             model.initialize(config_file)
         except Exception as e:
@@ -44,75 +48,86 @@ class RasterModelHandler(Iface):
     
     def run_model(self):
         model.run_model()
-        pass
     
     def get_component_name(self):
-        model.get_component_name()
+        return model.get_component_name()
     
     def get_input_var_names(self):
-        model.get_input_var_names()
+        return model.get_input_var_names()
     
     def get_output_var_names(self):
-        model.get_output_var_names()
+        return model.get_output_var_names()
     
     def get_var_type(self, long_var_name):
         """
         Parameters:
          - long_var_name
         """
-        model.get_var_type(long_var_name)
+        return model.get_var_type(long_var_name)
     
     def get_var_units(self, long_var_name):
         """
         Parameters:
          - long_var_name
         """
-        model.get_var_units(long_var_name)
+        return model.get_var_units(long_var_name)
     
     def get_var_rank(self, long_var_name):
         """
         Parameters:
          - long_var_name
         """
-        model.get_var_rank(long_var_name)
+        return model.get_var_rank(long_var_name)
     
     def get_start_time(self):
-        model.get_start_time()
+        return model.get_start_time()
     
     def get_end_time(self):
-        model.get_end_time()
+        return model.get_end_time()
     
     def get_current_time(self):
-        model.get_current_time()
+        return model.get_current_time()
     
     def get_value(self, long_var_name):
         """
         Parameters:
          - long_var_name
         """
-        model.get_value()
-        pass
+        return model.get_value(long_var_name).tostring()
+
+    def get_grid_type(self, long_var_name):
+        """
+        Parameters:
+         - long_var_name
+        """
+        result = model.get_grid_type(long_var_name)
+        
+        print result
+        
+        return result
     
     def get_grid_shape(self, long_var_name):
         """
         Parameters:
          - long_var_name
         """
-        model.get_grid_shape(long_var_name)
+        return model.get_grid_shape(long_var_name)
 
     def get_grid_spacing(self, long_var_name):
         """
         Parameters:
          - long_var_name
         """
-        model.get_grid_spacing(long_var_name)
+        return model.get_grid_spacing(long_var_name)
 
     def get_grid_origin(self, long_var_name):
         """
         Parameters:
          - long_var_name
         """
-        model.get_grid_origin(long_var_name)
+        return model.get_grid_origin(long_var_name)
+    
+    
     
 
 if __name__ == '__main__':
@@ -126,7 +141,6 @@ if __name__ == '__main__':
     
     tfactory = TTransport.TBufferedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolFactory()
-
     
     server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
     
