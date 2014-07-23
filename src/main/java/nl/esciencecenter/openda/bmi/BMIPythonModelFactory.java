@@ -1,4 +1,4 @@
-package nl.esciencecenter.openda.bmi.python;
+package nl.esciencecenter.openda.bmi;
 
 import java.io.File;
 

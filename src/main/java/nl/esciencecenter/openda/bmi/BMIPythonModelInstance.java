@@ -1,4 +1,4 @@
-package nl.esciencecenter.openda.bmi.python;
+package nl.esciencecenter.openda.bmi;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,12 +34,12 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class BMIPythonModelInstance implements IModelInstance {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(BMIPythonModelInstance.class);
 
     private static final int MAX_CONNECT_ATTEMPTS = 20;
     private static final long CONNECT_TIMEOUT = 100; //ms
-    
+
     //Obtain a free port by opening a server socket without explicitly giving the port,
     //asking its port, and closing the server socket again.
     private static int getFreePort() throws IOException {
@@ -54,12 +54,12 @@ public class BMIPythonModelInstance implements IModelInstance {
     private static Process startModelProcess(int port) throws IOException {
         ProcessBuilder builder = new ProcessBuilder();
 
-        builder.directory(new File("/home/niels/workspace/OpenDABmiPython/src"));
+        builder.directory(new File("/home/niels/workspace/openda_bmi_python/"));
 
-        builder.environment().put("PYTHONPATH", "python:gen-py");
+        builder.environment().put("PYTHONPATH", "generated/main/python:src/main/python");
 
-        builder.command().add("/usr/bin/python");
-        builder.command().add("python/testBMIServer.py");
+        builder.command().add("python");
+        builder.command().add("src/main/python/testBMIServer.py");
         builder.command().add(Integer.toString(port));
 
         builder.redirectError(Redirect.INHERIT);
@@ -79,7 +79,7 @@ public class BMIPythonModelInstance implements IModelInstance {
                 //We are hoping to end up here, because it means the process is still running.
                 //Note: Java 8 allows a smarter way of implementing this.
             }
-            
+
             //then try connecting to the code
             try {
                 TTransport transport = new TSocket("localhost", port);
@@ -89,7 +89,7 @@ public class BMIPythonModelInstance implements IModelInstance {
             } catch (TTransportException e) {
                 LOGGER.debug("could not connect to code (yet)", e);
             }
-            
+
             //finally, wait a certain time before trying again
             try {
                 Thread.sleep(CONNECT_TIMEOUT);
@@ -102,14 +102,18 @@ public class BMIPythonModelInstance implements IModelInstance {
 
     private final BmiRaster.Client client;
 
+    private final Process process;
+
+    private final TTransport transport;
+
     public BMIPythonModelInstance() throws IOException, ModelException, TException {
 
         int port = getFreePort();
 
-        Process process = startModelProcess(port);
+        process = startModelProcess(port);
 
-        TTransport transport = connectToCode(port, process);
-        
+        transport = connectToCode(port, process);
+
         TProtocol protocol = new TBinaryProtocol(transport);
         client = new BmiRaster.Client(protocol);
 
@@ -161,8 +165,22 @@ public class BMIPythonModelInstance implements IModelInstance {
 
     @Override
     public void finish() {
-        // TODO Auto-generated method stub
+        try {
+            client.finalize();
 
+            transport.close();
+
+            process.destroy();
+            
+            try {
+                process.waitFor();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        } catch (TException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

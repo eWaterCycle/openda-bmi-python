@@ -7,7 +7,7 @@ import numpy as np
 from BMI import BMI, BmiGridType
 #from scipy import ndimage
 
-class BMIToyModel (BMI):
+class IncrementModel (BMI):
     _var_units = {'var1': 'unit1'}
     _name = 'Example Python Toy Model'
     _input_var_names = ['var1']

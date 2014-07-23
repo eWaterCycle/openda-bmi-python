@@ -1,4 +1,4 @@
-package nl.esciencecenter.openda.bmi.python;
+package nl.esciencecenter.openda.bmi;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -26,12 +26,13 @@ public class BMITest {
         
         System.err.println(Arrays.toString(instance.getExchangeItemIDs()));
         
-        
         System.err.println(Arrays.toString(instance.getExchangeItemIDs(Role.InOut)));
         
         System.err.println(Arrays.toString(instance.getExchangeItemIDs(Role.Input)));
         
         System.err.println(Arrays.toString(instance.getExchangeItemIDs(Role.Output)));
+        
+        instance.finish();
 //        
 //        System.err.println(client.get_input_var_names ());
 //        System.err.println(client.get_output_var_names ());

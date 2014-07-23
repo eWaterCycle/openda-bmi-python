@@ -1,4 +1,4 @@
-package nl.esciencecenter.openda.bmi.python;
+package nl.esciencecenter.openda.bmi;
 
 import jep.Jep;
 import jep.JepException;

@@ -14,6 +14,7 @@ from bmi.thrift.BmiRaster import Processor
 from BMI_impl import Model
 from bmi.thrift.ttypes import ModelException, BmiGridType
 import sys
+import signal
 
 class RasterModelHandler(Iface):
 
@@ -46,6 +47,8 @@ class RasterModelHandler(Iface):
     
     def finalize(self):
         model.finalize()
+        
+        #raise TTransport.TTransportException("end of model, shut down server")
     
     def run_model(self):
         model.run_model()
@@ -129,6 +132,9 @@ class RasterModelHandler(Iface):
         return model.get_grid_origin(long_var_name)
     
     
+def handleSIGINT(sig, frame):
+    #clean up state or what ever is necessary
+    sys.exit(0)
     
 
 if __name__ == '__main__':
@@ -145,6 +151,12 @@ if __name__ == '__main__':
     
     server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
     
+    signal.signal(signal.SIGINT, handleSIGINT)
+    
+    
+    
     print server
     
     server.serve()
+    
+    print "done"

@@ -5,17 +5,17 @@ Created on Jul 7, 2014
 '''
 import numpy as np
 from BMI import BMI
-from BMI_impl import Model
+import increment_model
 
 def main ():
-    c = Model()
+    c = increment_model.IncrementModel()
 
     c.initialize ()
 
     print c.get_input_var_names ()
     print c.get_output_var_names ()
 
-    var_name = 'surface_elevation'
+    var_name = 'var1'
 
     print c.get_grid_type(var_name)
 
