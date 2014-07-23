@@ -7,11 +7,11 @@ import numpy as np
 from BMI import BMI, BmiGridType
 #from scipy import ndimage
 
-class BMIToyModel (BMI):
-    _var_units = {'var1': 'unit1'}
-    _name = 'Example Python Toy Model'
-    _input_var_names = ['var1']
-    _output_var_names = ['var1']
+class BMIAR1 (BMI):
+    _var_units = {'state': '[-]'}
+    _name = 'Example Python AR1 model, BMI'
+    _input_var_names = ['state']
+    _output_var_names = ['state']
 
     def __init__ (self):
         self._dt = 0
@@ -23,6 +23,7 @@ class BMIToyModel (BMI):
         self._endTime = 0.
 
         self._state = None
+        self._forcing = None
         
         self._value = {}
 
@@ -34,21 +35,33 @@ class BMIToyModel (BMI):
         self._startTime = 1.
         self._endTime = 20.
 
-        self._shape = (10, 10)
+        self._shape = (3, 1)
 
         self._spacing = (1., 1.)
         self._origin = (0., 0.)
 
-        self._state = np.zeros (self._shape) + self._startTime
+        self._state = np.zeros (self._shape)
         
-        self._value['var1'] = "_state"
+        self._timeSteps = int((self._endTime - self._startTime)/self._dt)
+        
+        self._forcing = np.random.rand(self._shape[0],self._timeSteps)
+        self._forcingTimeIndex = 0 
+        
+        self._ARcoefMatrix=np.array([[0.5, 0.2, 0.3],[0.2, 0.5, 0.3],[0.3, 0.3, 0.4]])
+        
+        self._value['state'] = "_state"
+        self._value['forcing'] = "_forcing"
+        
 
     def update (self):
         if self._t >= self._endTime:
 		    raise "endTime already reached, model not updated"
-        self._state = self._state + 1
+        
+        self._state = np.dot(self._ARcoefMatrix,self._state) + self._forcing[:,self._forcingTimeIndex]
+        
+        self._forcingTimeIndex += 1
         self._t += self._dt
-
+        
     def update_until (self, t):
         if (t<self._t) or t>self._endTime:
             raise "wrong time input: smaller than model time or larger than endTime"
@@ -58,8 +71,10 @@ class BMIToyModel (BMI):
     def finalize (self):
         self._dt = 0
         self._t = 0
+        self._forcingTimeIndex = 0;
 
         self._state = np.array ([])
+        self._forcing = np.array ([])
 
     def get_var_type (self, long_var_name):
         return str (self.get_value (long_var_name).dtype)
@@ -75,6 +90,7 @@ class BMIToyModel (BMI):
     def set_value (self, long_var_name, src):
         val = self.get_value (long_var_name)
         val[:] = src
+		
     def set_value_at_indices (self, long_var_name, indices, src):
         val = self.get_value (long_var_name)
         val[indices] = src
