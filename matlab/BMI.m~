@@ -1,0 +1,70 @@
+classdef BMI < handle
+    %These properties are shared by all BMI models.
+    properties (Dependent)
+        time
+        startTime
+        endTime
+        
+    end
+    
+    %the following is the heart of the BMI class. Every BMI model needs to
+    %implement these methods. For some methods a standard implementation is
+    %provided (example: update_until). These can be overwritten by
+    %implementing them in the model class file. See the AR1class.m for an
+    %example. Methods that are not implemented will throw an error msg
+    %declaring they are not implemented.
+    methods
+        function initialize(obj,fileName)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function update(obj)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function update_until(obj,time)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_var_type(obj,long_var_name)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_var_units(obj,long_var_name)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_var_rank(obj,long_var_name)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_value(obj,long_var_name)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_value_at_indices(obj,long_var_name, inds)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function set_value(obj,long_var_name, src)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function set_value_at_indices(obj,long_var_name, inds, src)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_component_name(obj)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_input_var_names(obj)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_output_var_names(obj)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_start_time(obj)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_end_time(obj)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        function output = get_current_time(obj)
+            error(['This method is not defined in class ' mfilename('class')]);
+        end
+        
+        
+    end
+    
+end
+
