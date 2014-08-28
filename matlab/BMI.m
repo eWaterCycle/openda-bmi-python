@@ -1,4 +1,13 @@
 classdef BMI < hgsetget
+    % a superclass for models that want to implement the Basic Model
+    % Interface (BMI, see http://csdms.colorado.edu/wiki/BMI_Description).
+    % to construct a model, use: classdef myModel < BMI.
+    % in the constructor of your class, the properties defined below should
+    % be given values. Note that the name, var_units, input_var_units and
+    % output_var_units need all be map containers. See the AR1BMI.m file
+    % for an example.
+    
+    
     %These properties are shared by all BMI models. they need to be set in
     %the constructor of the model class.
     properties
