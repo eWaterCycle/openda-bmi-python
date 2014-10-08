@@ -78,7 +78,7 @@ classdef AR1BMI < simpleBMI
             else
                 %run the actual model
                 parameters.AR1coefs=obj.ARcoefMatrix;
-                obj.stateVector=AR1Filter(parameters,obj.stateVector,1,obj.forcing(:,obj.forcingTimeIndex));
+                obj.stateVector=AR1FilterMatlabModel(parameters,obj.stateVector,1,obj.forcing(:,obj.forcingTimeIndex));
                 
                 %update time
                 obj.forcingTimeIndex=obj.forcingTimeIndex+1;

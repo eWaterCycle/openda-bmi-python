@@ -1,0 +1,39 @@
+%% clean
+
+clear all
+close all
+clc
+
+%% model specifics
+
+%Directories:
+runDir = '.';
+dataDir = [runDir filesep 'data'];
+modelDir = [runDir filesep 'models'];
+classDir = [runDir filesep '..'];
+
+addpath(modelDir);
+addpath(classDir);
+
+sigma=10;
+rho=28;
+beta=8/3;
+
+startTime=0;
+endTime=500;
+dt=1e-3;
+
+
+%% create model
+
+LorenzObj=LorenzBMI(startTime,endTime,dt,sigma,rho,beta);
+
+
+%% run as ensemble
+
+LorenzObj.initialize;
+
+LorenzObj.update_until(10);
+
+LorenzObj.set
+
