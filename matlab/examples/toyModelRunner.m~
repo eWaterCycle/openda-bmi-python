@@ -1,0 +1,54 @@
+%% clean
+clear all
+close all
+clc
+
+
+%% settings
+
+
+
+%Directories:
+runDir = '.';
+dataDir = [runDir filesep 'data'];
+modelDir = [runDir filesep 'models'];
+classDir = [runDir filesep '..'];
+
+addpath(modelDir);
+addpath(classDir);
+
+%the model in matlab state model format (ie. state_out = model(parameters, state_in, n_timesteps) )
+modelHandle = @toyModelMatlabModel;
+
+dimensions = [10 10];
+dt = 1;
+startTime = 0;
+endTime = 20;
+
+%% create model
+
+
+toyModelObj=stateModelBMI(modelHandle,dimensions,startTime,endTime,dt);
+
+
+%% run model, save all steps as csv files
+
+%step 1: initialize
+toyModelObj.initialize;
+%save state to file
+csvwrite([dataDir filesep 'toyModelRunStep1.csv'],toyModelObj.get_value('state'));
+
+%step 2: run.
+toyModelObj.update;
+%save state to file
+csvwrite([dataDir filesep 'toyModelRunStep2.csv'],toyModelObj.get_value('state'));
+
+%step 3: change the state
+toyModelObj.set_value('state',toyModelObj.get_value('state')+ 0.5 * ones(dimensions)); 
+%save state to file
+csvwrite([dataDir filesep 'toyModelRunStep3.csv'],toyModelObj.get_value('state'));
+
+%step 3: change the state at indices
+toyModelObj.set_value_at_indices('state',toyModelObj.get_value('state')+ 0.5 * ones(dimensions)); 
+%save state to file
+csvwrite([dataDir filesep 'toyModelRunStep3.csv'],toyModelObj.get_value('state'));

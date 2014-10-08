@@ -1,4 +1,4 @@
-classdef AR1BMI < BMI
+classdef AR1BMI < simpleBMI
     
     %properties that are both input and output (ie. can be set and gotten)
     properties (GetAccess = 'public', SetAccess = 'public')

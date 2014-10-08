@@ -11,13 +11,6 @@ classdef BMI < hgsetget
     %These properties are shared by all BMI models. they need to be set in
     %the constructor of the model class.
     properties
-        time
-        startTime
-        endTime
-        name % a string containing the model name
-        var_units % a containers map linking variable names to units
-        input_var_names % a containers map linking interface variable names to model variable names
-        output_var_names % a containers map linking interface variable names to model variable names
     end
     
     
@@ -38,113 +31,51 @@ classdef BMI < hgsetget
         
         
         function update_until(obj,time)
-            if time >= obj.endTime
-                error('endTime already reached, model not updated');
-            end
-            while obj.time < time
-                obj.update;
-            end
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         function output = get_var_units(obj,long_var_name)
-            try
-                output=obj.var_units(long_var_name);
-            catch
-                error('unknown variable')
-            end
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         
         function output = get_var_type(obj,long_var_name)
-            try
-                output=class(get(obj,obj.input_var_names(long_var_name)));
-            catch
-                try
-                    output=class(get(obj,obj.output_var_names(long_var_name)));
-                catch
-                    error('unknown variable')
-                end
-            end
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         function output = get_var_rank(obj,long_var_name)
-            try
-                output=size(get(obj,obj.input_var_names(long_var_name)));
-            catch
-                try
-                    output=size(get(obj,obj.output_var_names(long_var_name)));
-                catch
-                    error('unknown variable')
-                end
-            end
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         function output = get_value(obj,long_var_name)
-            try
-                output=get(obj,obj.output_var_names(long_var_name));
-            catch
-                error('unknown variable')
-            end
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         function output = get_value_at_indices(obj,long_var_name, inds)
-            if ischar(inds) %indices are provided as matlab string, including brackets!
-                try
-                    output=eval(['obj.' obj.output_var_names(long_var_name) inds]);
-                catch
-                    error('unknown variable or wrong indices. Indices need to be a string!')
-                end
-            else %indices are numbers
-                try
-                    output=get(obj,obj.output_var_names(long_var_name));
-                    output=output(inds);
-                catch
-                    error('unknown variable or wrong indices. Indices need to be a string!')
-                end
-            end
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         
         function set_value(obj,long_var_name, src)
-            
-            try
-                set(obj,obj.input_var_names(long_var_name),src);
-            catch
-                error('unknown variable')
-            end
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         
         function set_value_at_indices(obj,long_var_name, inds, src)
-            try
-                toBeSet=get(obj,obj.input_var_names(long_var_name));
-            catch
-                error('unknown variable or wrong indices')
-            end
-            
-            if ischar(inds) %indices are provided as matlab string, including brackets!
-                eval(['toBeSet' inds '=src;']);
-            else %indices are numbers
-                toBeSet(inds)=src;
-            end
-            set(obj,obj.input_var_names(long_var_name),toBeSet);
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         
         function output = get_component_name(obj)
-            output = obj.name;
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         function output = get_input_var_names(obj)
-            output=keys(obj.input_var_names);
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         function output = get_output_var_names(obj)
-            output=keys(obj.output_var_names);
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         function output = get_start_time(obj)
-            output=obj.startTime;
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         function output = get_end_time(obj)
-            output=obj.endTime;
+            error(['This method is not defined in class ' mfilename('class')]);
         end
         function output = get_current_time(obj)
-            output=obj.time;
+            error(['This method is not defined in class ' mfilename('class')]);
         end
-
-        
-        
     end
-    
 end
 
