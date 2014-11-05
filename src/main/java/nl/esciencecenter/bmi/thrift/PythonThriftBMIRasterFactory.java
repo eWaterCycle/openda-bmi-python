@@ -13,26 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.esciencecenter.openda.bmi;
+package nl.esciencecenter.bmi.thrift;
 
-import jep.Jep;
-import jep.JepException;
+import nl.esciencecenter.openda.bmi.thrift.BmiRaster.Client;
 
+public class PythonThriftBMIRasterFactory {
 
-public class JepTest {
-
-    public static void main(String[] args) throws JepException {
-        Jep jep = new Jep();
+    public PythonThriftBMIRasterFactory() {
         
-        
-        String theString = "some string";
-        
-        jep.set("query", theString);
-        
-        jep.eval("print query");
-        
-        // TODO Auto-generated method stub
-
     }
 
+    
 }

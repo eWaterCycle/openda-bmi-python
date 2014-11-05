@@ -13,26 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.esciencecenter.openda.bmi;
+package nl.esciencecenter.bmi;
 
-import jep.Jep;
-import jep.JepException;
+public interface BMIRaster extends BMI {
 
+    public int[] get_grid_shape(String long_var_name) throws BMIModelException;
 
-public class JepTest {
+    public double[] get_grid_spacing(String long_var_name) throws BMIModelException;
 
-    public static void main(String[] args) throws JepException {
-        Jep jep = new Jep();
-        
-        
-        String theString = "some string";
-        
-        jep.set("query", theString);
-        
-        jep.eval("print query");
-        
-        // TODO Auto-generated method stub
-
-    }
+    public double[] get_grid_origin(String long_var_name) throws BMIModelException;
 
 }
