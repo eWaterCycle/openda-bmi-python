@@ -62,7 +62,7 @@ service BMIService {
     BmiGridType get_grid_type(1:string long_var_name) throws (1:ModelException error);
 }
 
-service BmiRasterService extends BMI {
+service BmiRasterService extends BMIService {
 
     list<i32> get_grid_shape(1:string long_var_name);
     
@@ -72,7 +72,7 @@ service BmiRasterService extends BMI {
     
 }
 
-service BmiRectilinearService extends BMI {
+service BmiRectilinearService extends BMIService {
     list<i32> get_grid_shape(1:string long_var_name);
 
     list<double> get_grid_x(1:string long_var_name);
@@ -83,7 +83,7 @@ service BmiRectilinearService extends BMI {
     
 }
 
-service BmiStructuredService extends BMI {
+service BmiStructuredService extends BMIService {
     list<i32> get_grid_shape(1:string long_var_name);
 
     list<double> get_grid_x(1:string long_var_name);
@@ -94,7 +94,7 @@ service BmiStructuredService extends BMI {
 
 }
 
-service BmiUnstructuredService extends BMI {
+service BmiUnstructuredService extends BMIService {
     list<double> get_grid_x(1:string long_var_name);
     
     list<double> get_grid_y(1:string long_var_name);

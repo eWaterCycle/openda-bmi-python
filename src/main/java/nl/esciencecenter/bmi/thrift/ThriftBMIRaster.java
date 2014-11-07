@@ -34,18 +34,17 @@ import org.apache.thrift.TException;
  * @author Niels Drost
  *
  */
-public  class ThriftBMIRaster implements BMIRaster {
+public abstract class ThriftBMIRaster implements BMIRaster {
 
     private final Client client;
 
     /**
-     * It is up to the user to create the (connection to) the model.
+     * It is up to the user to create the model (possibly a remote process), and a connection to it.
      * 
      * @param client
      */
     public ThriftBMIRaster(BmiRaster.Client client) {
         this.client = client;
-
     }
 
     @Override
@@ -81,6 +80,8 @@ public  class ThriftBMIRaster implements BMIRaster {
             client.finalize_model();
         } catch (TException e) {
             throw new BMIModelException("failed to execute function on remote model", e);
+        } finally {
+            stop_model();
         }
     }
 
@@ -308,4 +309,6 @@ public  class ThriftBMIRaster implements BMIRaster {
             throw new BMIModelException("failed to execute function on remote model", e);
         }
     }
+    
+    public abstract void stop_model();
 }

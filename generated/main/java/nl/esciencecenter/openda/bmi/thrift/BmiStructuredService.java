@@ -30,9 +30,9 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BmiRectilinear {
+public class BmiStructuredService {
 
-  public interface Iface extends BMI.Iface {
+  public interface Iface extends BMIService.Iface {
 
     public List<Integer> get_grid_shape(String long_var_name) throws org.apache.thrift.TException;
 
@@ -44,7 +44,7 @@ public class BmiRectilinear {
 
   }
 
-  public interface AsyncIface extends BMI .AsyncIface {
+  public interface AsyncIface extends BMIService .AsyncIface {
 
     public void get_grid_shape(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.get_grid_shape_call> resultHandler) throws org.apache.thrift.TException;
 
@@ -56,7 +56,7 @@ public class BmiRectilinear {
 
   }
 
-  public static class Client extends BMI.Client implements Iface {
+  public static class Client extends BMIService.Client implements Iface {
     public static class Factory implements org.apache.thrift.TServiceClientFactory<Client> {
       public Factory() {}
       public Client getClient(org.apache.thrift.protocol.TProtocol prot) {
@@ -169,7 +169,7 @@ public class BmiRectilinear {
     }
 
   }
-  public static class AsyncClient extends BMI.AsyncClient implements AsyncIface {
+  public static class AsyncClient extends BMIService.AsyncClient implements AsyncIface {
     public static class Factory implements org.apache.thrift.async.TAsyncClientFactory<AsyncClient> {
       private org.apache.thrift.async.TAsyncClientManager clientManager;
       private org.apache.thrift.protocol.TProtocolFactory protocolFactory;
@@ -316,7 +316,7 @@ public class BmiRectilinear {
 
   }
 
-  public static class Processor<I extends Iface> extends BMI.Processor<I> implements org.apache.thrift.TProcessor {
+  public static class Processor<I extends Iface> extends BMIService.Processor<I> implements org.apache.thrift.TProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(Processor.class.getName());
     public Processor(I iface) {
       super(iface, getProcessMap(new HashMap<String, org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>>()));
@@ -1079,13 +1079,13 @@ public class BmiRectilinear {
             case 0: // SUCCESS
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
-                  org.apache.thrift.protocol.TList _list56 = iprot.readListBegin();
-                  struct.success = new ArrayList<Integer>(_list56.size);
-                  for (int _i57 = 0; _i57 < _list56.size; ++_i57)
+                  org.apache.thrift.protocol.TList _list88 = iprot.readListBegin();
+                  struct.success = new ArrayList<Integer>(_list88.size);
+                  for (int _i89 = 0; _i89 < _list88.size; ++_i89)
                   {
-                    int _elem58; // required
-                    _elem58 = iprot.readI32();
-                    struct.success.add(_elem58);
+                    int _elem90; // required
+                    _elem90 = iprot.readI32();
+                    struct.success.add(_elem90);
                   }
                   iprot.readListEnd();
                 }
@@ -1113,9 +1113,9 @@ public class BmiRectilinear {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.I32, struct.success.size()));
-            for (int _iter59 : struct.success)
+            for (int _iter91 : struct.success)
             {
-              oprot.writeI32(_iter59);
+              oprot.writeI32(_iter91);
             }
             oprot.writeListEnd();
           }
@@ -1146,9 +1146,9 @@ public class BmiRectilinear {
         if (struct.isSetSuccess()) {
           {
             oprot.writeI32(struct.success.size());
-            for (int _iter60 : struct.success)
+            for (int _iter92 : struct.success)
             {
-              oprot.writeI32(_iter60);
+              oprot.writeI32(_iter92);
             }
           }
         }
@@ -1160,13 +1160,13 @@ public class BmiRectilinear {
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           {
-            org.apache.thrift.protocol.TList _list61 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.I32, iprot.readI32());
-            struct.success = new ArrayList<Integer>(_list61.size);
-            for (int _i62 = 0; _i62 < _list61.size; ++_i62)
+            org.apache.thrift.protocol.TList _list93 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.I32, iprot.readI32());
+            struct.success = new ArrayList<Integer>(_list93.size);
+            for (int _i94 = 0; _i94 < _list93.size; ++_i94)
             {
-              int _elem63; // required
-              _elem63 = iprot.readI32();
-              struct.success.add(_elem63);
+              int _elem95; // required
+              _elem95 = iprot.readI32();
+              struct.success.add(_elem95);
             }
           }
           struct.setSuccessIsSet(true);
@@ -1839,13 +1839,13 @@ public class BmiRectilinear {
             case 0: // SUCCESS
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
-                  org.apache.thrift.protocol.TList _list64 = iprot.readListBegin();
-                  struct.success = new ArrayList<Double>(_list64.size);
-                  for (int _i65 = 0; _i65 < _list64.size; ++_i65)
+                  org.apache.thrift.protocol.TList _list96 = iprot.readListBegin();
+                  struct.success = new ArrayList<Double>(_list96.size);
+                  for (int _i97 = 0; _i97 < _list96.size; ++_i97)
                   {
-                    double _elem66; // required
-                    _elem66 = iprot.readDouble();
-                    struct.success.add(_elem66);
+                    double _elem98; // required
+                    _elem98 = iprot.readDouble();
+                    struct.success.add(_elem98);
                   }
                   iprot.readListEnd();
                 }
@@ -1873,9 +1873,9 @@ public class BmiRectilinear {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, struct.success.size()));
-            for (double _iter67 : struct.success)
+            for (double _iter99 : struct.success)
             {
-              oprot.writeDouble(_iter67);
+              oprot.writeDouble(_iter99);
             }
             oprot.writeListEnd();
           }
@@ -1906,9 +1906,9 @@ public class BmiRectilinear {
         if (struct.isSetSuccess()) {
           {
             oprot.writeI32(struct.success.size());
-            for (double _iter68 : struct.success)
+            for (double _iter100 : struct.success)
             {
-              oprot.writeDouble(_iter68);
+              oprot.writeDouble(_iter100);
             }
           }
         }
@@ -1920,13 +1920,13 @@ public class BmiRectilinear {
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           {
-            org.apache.thrift.protocol.TList _list69 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
-            struct.success = new ArrayList<Double>(_list69.size);
-            for (int _i70 = 0; _i70 < _list69.size; ++_i70)
+            org.apache.thrift.protocol.TList _list101 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
+            struct.success = new ArrayList<Double>(_list101.size);
+            for (int _i102 = 0; _i102 < _list101.size; ++_i102)
             {
-              double _elem71; // required
-              _elem71 = iprot.readDouble();
-              struct.success.add(_elem71);
+              double _elem103; // required
+              _elem103 = iprot.readDouble();
+              struct.success.add(_elem103);
             }
           }
           struct.setSuccessIsSet(true);
@@ -2599,13 +2599,13 @@ public class BmiRectilinear {
             case 0: // SUCCESS
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
-                  org.apache.thrift.protocol.TList _list72 = iprot.readListBegin();
-                  struct.success = new ArrayList<Double>(_list72.size);
-                  for (int _i73 = 0; _i73 < _list72.size; ++_i73)
+                  org.apache.thrift.protocol.TList _list104 = iprot.readListBegin();
+                  struct.success = new ArrayList<Double>(_list104.size);
+                  for (int _i105 = 0; _i105 < _list104.size; ++_i105)
                   {
-                    double _elem74; // required
-                    _elem74 = iprot.readDouble();
-                    struct.success.add(_elem74);
+                    double _elem106; // required
+                    _elem106 = iprot.readDouble();
+                    struct.success.add(_elem106);
                   }
                   iprot.readListEnd();
                 }
@@ -2633,9 +2633,9 @@ public class BmiRectilinear {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, struct.success.size()));
-            for (double _iter75 : struct.success)
+            for (double _iter107 : struct.success)
             {
-              oprot.writeDouble(_iter75);
+              oprot.writeDouble(_iter107);
             }
             oprot.writeListEnd();
           }
@@ -2666,9 +2666,9 @@ public class BmiRectilinear {
         if (struct.isSetSuccess()) {
           {
             oprot.writeI32(struct.success.size());
-            for (double _iter76 : struct.success)
+            for (double _iter108 : struct.success)
             {
-              oprot.writeDouble(_iter76);
+              oprot.writeDouble(_iter108);
             }
           }
         }
@@ -2680,13 +2680,13 @@ public class BmiRectilinear {
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           {
-            org.apache.thrift.protocol.TList _list77 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
-            struct.success = new ArrayList<Double>(_list77.size);
-            for (int _i78 = 0; _i78 < _list77.size; ++_i78)
+            org.apache.thrift.protocol.TList _list109 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
+            struct.success = new ArrayList<Double>(_list109.size);
+            for (int _i110 = 0; _i110 < _list109.size; ++_i110)
             {
-              double _elem79; // required
-              _elem79 = iprot.readDouble();
-              struct.success.add(_elem79);
+              double _elem111; // required
+              _elem111 = iprot.readDouble();
+              struct.success.add(_elem111);
             }
           }
           struct.setSuccessIsSet(true);
@@ -3359,13 +3359,13 @@ public class BmiRectilinear {
             case 0: // SUCCESS
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
-                  org.apache.thrift.protocol.TList _list80 = iprot.readListBegin();
-                  struct.success = new ArrayList<Double>(_list80.size);
-                  for (int _i81 = 0; _i81 < _list80.size; ++_i81)
+                  org.apache.thrift.protocol.TList _list112 = iprot.readListBegin();
+                  struct.success = new ArrayList<Double>(_list112.size);
+                  for (int _i113 = 0; _i113 < _list112.size; ++_i113)
                   {
-                    double _elem82; // required
-                    _elem82 = iprot.readDouble();
-                    struct.success.add(_elem82);
+                    double _elem114; // required
+                    _elem114 = iprot.readDouble();
+                    struct.success.add(_elem114);
                   }
                   iprot.readListEnd();
                 }
@@ -3393,9 +3393,9 @@ public class BmiRectilinear {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, struct.success.size()));
-            for (double _iter83 : struct.success)
+            for (double _iter115 : struct.success)
             {
-              oprot.writeDouble(_iter83);
+              oprot.writeDouble(_iter115);
             }
             oprot.writeListEnd();
           }
@@ -3426,9 +3426,9 @@ public class BmiRectilinear {
         if (struct.isSetSuccess()) {
           {
             oprot.writeI32(struct.success.size());
-            for (double _iter84 : struct.success)
+            for (double _iter116 : struct.success)
             {
-              oprot.writeDouble(_iter84);
+              oprot.writeDouble(_iter116);
             }
           }
         }
@@ -3440,13 +3440,13 @@ public class BmiRectilinear {
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           {
-            org.apache.thrift.protocol.TList _list85 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
-            struct.success = new ArrayList<Double>(_list85.size);
-            for (int _i86 = 0; _i86 < _list85.size; ++_i86)
+            org.apache.thrift.protocol.TList _list117 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
+            struct.success = new ArrayList<Double>(_list117.size);
+            for (int _i118 = 0; _i118 < _list117.size; ++_i118)
             {
-              double _elem87; // required
-              _elem87 = iprot.readDouble();
-              struct.success.add(_elem87);
+              double _elem119; // required
+              _elem119 = iprot.readDouble();
+              struct.success.add(_elem119);
             }
           }
           struct.setSuccessIsSet(true);

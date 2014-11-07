@@ -16,7 +16,7 @@ from bmi.thrift.ttypes import ModelException, BmiGridType
 import sys
 import signal
 
-class ThriftBMIRasterServer(Iface):
+class RasterModelHandler(Iface):
 
     def __init__(self, model):
         self.model = model
@@ -139,9 +139,11 @@ def handleSIGINT(sig, frame):
 
 if __name__ == '__main__':
     
+    print sys.argv
+    
     model = Model()
     
-    handler = ThriftBMIRasterServer(model)
+    handler = RasterModelHandler(model)
     processor = Processor(handler)
     
     transport = TSocket.TServerSocket(port=sys.argv[1])
@@ -152,8 +154,6 @@ if __name__ == '__main__':
     server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
     
     signal.signal(signal.SIGINT, handleSIGINT)
-    
-    
     
     print server
     

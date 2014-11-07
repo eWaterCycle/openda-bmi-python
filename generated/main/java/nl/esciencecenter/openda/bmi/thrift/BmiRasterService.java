@@ -30,9 +30,9 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BmiRaster {
+public class BmiRasterService {
 
-  public interface Iface extends BMI.Iface {
+  public interface Iface extends BMIService.Iface {
 
     public List<Integer> get_grid_shape(String long_var_name) throws org.apache.thrift.TException;
 
@@ -42,7 +42,7 @@ public class BmiRaster {
 
   }
 
-  public interface AsyncIface extends BMI .AsyncIface {
+  public interface AsyncIface extends BMIService .AsyncIface {
 
     public void get_grid_shape(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.get_grid_shape_call> resultHandler) throws org.apache.thrift.TException;
 
@@ -52,7 +52,7 @@ public class BmiRaster {
 
   }
 
-  public static class Client extends BMI.Client implements Iface {
+  public static class Client extends BMIService.Client implements Iface {
     public static class Factory implements org.apache.thrift.TServiceClientFactory<Client> {
       public Factory() {}
       public Client getClient(org.apache.thrift.protocol.TProtocol prot) {
@@ -142,7 +142,7 @@ public class BmiRaster {
     }
 
   }
-  public static class AsyncClient extends BMI.AsyncClient implements AsyncIface {
+  public static class AsyncClient extends BMIService.AsyncClient implements AsyncIface {
     public static class Factory implements org.apache.thrift.async.TAsyncClientFactory<AsyncClient> {
       private org.apache.thrift.async.TAsyncClientManager clientManager;
       private org.apache.thrift.protocol.TProtocolFactory protocolFactory;
@@ -257,7 +257,7 @@ public class BmiRaster {
 
   }
 
-  public static class Processor<I extends Iface> extends BMI.Processor<I> implements org.apache.thrift.TProcessor {
+  public static class Processor<I extends Iface> extends BMIService.Processor<I> implements org.apache.thrift.TProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(Processor.class.getName());
     public Processor(I iface) {
       super(iface, getProcessMap(new HashMap<String, org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>>()));

@@ -1,1 +1,1 @@
-__all__ = ['ttypes', 'constants', 'BMI', 'BmiRaster', 'BmiRectilinear', 'BmiStructured', 'BmiUnstructured']
+__all__ = ['ttypes', 'constants', 'BMIService', 'BmiRasterService', 'BmiRectilinearService', 'BmiStructuredService', 'BmiUnstructuredService']
