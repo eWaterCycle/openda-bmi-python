@@ -34,10 +34,6 @@ public class DoubleRaster {
         }
     }
 
-    public void setAtIndices(double scalar, int x, int y) {
-        data[(x * width) + y] = scalar;
-    }
-
     public void addScalar(double scalar) {
         for (int i = 0; i < data.length; i++) {
             data[i] += scalar;

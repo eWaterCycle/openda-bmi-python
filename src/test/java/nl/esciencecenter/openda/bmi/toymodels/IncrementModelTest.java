@@ -706,10 +706,8 @@ public class IncrementModelTest {
 
         model.initialize("");
 
-        double[] data = new double[100];
-
         try {
-            model.set_double("does_not_exist_var", data);
+            model.get_grid_type("does_not_exist_var");
 
             fail("required exception not thrown");
         } catch (BMIModelException e) {
