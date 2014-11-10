@@ -37,18 +37,16 @@ public class IncrementModel implements BMIRaster {
     private final int[] shape;
     private final String name = "Example java toy increment Model";
 
-    
     public IncrementModel() {
         shape = new int[] { 10, 10 };
     }
-    
+
     @Override
     public void initialize(String file) throws BMIModelException {
         dt = 1.0;
-        t = 0.;
-        startTime = 1.;
-        endTime = 20.;
-
+        startTime = 1.0;
+        t = startTime;
+        endTime = 20.0;
 
         state = new DoubleRaster(shape[0], shape[1]);
         state.setScalar(startTime);
@@ -83,12 +81,12 @@ public class IncrementModel implements BMIRaster {
 
     @Override
     public String[] get_input_var_names() {
-        return new String[] {"var1"};
+        return new String[] { "var1" };
     };
 
     @Override
     public String[] get_output_var_names() {
-        return new String[] {"var1"};
+        return new String[] { "var1" };
     };
 
     @Override
@@ -108,7 +106,10 @@ public class IncrementModel implements BMIRaster {
     };
 
     @Override
-    public int get_var_rank(String long_var_name) {
+    public int get_var_rank(String long_var_name) throws BMIModelException {
+        if (!long_var_name.equals("var1")) {
+            throw new BMIModelException("variable " + long_var_name + " does not exist");
+        }
         return state.getRank();
     };
 
@@ -190,12 +191,18 @@ public class IncrementModel implements BMIRaster {
     }
 
     @Override
-    public double[] get_grid_spacing(String long_var_name) {
-        return new double[] {1.0, 1.0};
+    public double[] get_grid_spacing(String long_var_name) throws BMIModelException {
+        if (!long_var_name.equals("var1")) {
+            throw new BMIModelException("variable " + long_var_name + " does not exist");
+        }
+        return new double[] { 1.0, 1.0 };
     }
 
     @Override
-    public double[] get_grid_origin(String long_var_name) {
-        return new double[] {0.0, 0.0};
+    public double[] get_grid_origin(String long_var_name) throws BMIModelException {
+        if (!long_var_name.equals("var1")) {
+            throw new BMIModelException("variable " + long_var_name + " does not exist");
+        }
+        return new double[] { 0.0, 0.0 };
     }
 }
