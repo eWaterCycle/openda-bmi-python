@@ -15,11 +15,6 @@
  */
 package nl.esciencecenter.openda.bmi.toymodels;
 
-import java.nio.ByteBuffer;
-import java.nio.DoubleBuffer;
-import java.util.List;
-
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class DoubleRaster {
 
@@ -51,6 +46,14 @@ public class DoubleRaster {
 
     public int getRank() {
         return data.length;
+    }
+    
+    public int getWidth() {
+        return this.width;
+    }
+    
+    public int getHeight() {
+        return this.height;
     }
 
     public double[] getValues() {

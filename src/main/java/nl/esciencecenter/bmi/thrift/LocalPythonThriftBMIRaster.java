@@ -22,7 +22,7 @@ import java.net.ServerSocket;
 
 import nl.esciencecenter.bmi.BMIRaster;
 import nl.esciencecenter.openda.bmi.BMIPythonModelInstance;
-import nl.esciencecenter.openda.bmi.thrift.BmiRaster;
+import nl.esciencecenter.openda.bmi.thrift.BmiRasterService;
 
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -56,7 +56,8 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         return result;
     }
 
-    private static Process startModelProcess(int port, String pythonExecutable, File bridgeDir, File modelDir, String modelClass) throws IOException {
+    private static Process startModelProcess(int port, String pythonExecutable, File bridgeDir, File modelDir, String modelClass)
+            throws IOException {
         ProcessBuilder builder = new ProcessBuilder();
 
         builder.directory(modelDir);
@@ -64,7 +65,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         File generatedPythonCodeDir = new File(bridgeDir, "generated/main/python");
         File pythonCodeDir = new File(bridgeDir, "src/main/python");
         File pythonMainScript = new File(bridgeDir, "src/main/python/thrift_bmi_raster_server.py");
-        
+
         builder.environment().put("PYTHONPATH", generatedPythonCodeDir + ":" + pythonCodeDir);
 
         builder.command().add(pythonExecutable);
@@ -109,7 +110,8 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         throw new IOException("Failed to connect to model");
     }
 
-    public static BMIRaster createModel(String pythonExecutable, File bridgeDir, File modelDir, String modelClass) throws IOException {
+    public static BMIRaster createModel(String pythonExecutable, File bridgeDir, File modelDir, String modelClass)
+            throws IOException {
         int port = getFreePort();
 
         Process process = startModelProcess(port, pythonExecutable, bridgeDir, modelDir, modelClass);
@@ -117,7 +119,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         TTransport transport = connectToCode(port, process);
 
         TProtocol protocol = new TBinaryProtocol(transport);
-        BmiRaster.Client client = new BmiRaster.Client(protocol);
+        BmiRasterService.Client client = new BmiRasterService.Client(protocol);
 
         return new LocalPythonThriftBMIRaster(client, process, transport);
     }
@@ -126,7 +128,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
 
     private final TTransport transport;
 
-    private LocalPythonThriftBMIRaster(BmiRaster.Client client, Process process, TTransport transport) {
+    private LocalPythonThriftBMIRaster(BmiRasterService.Client client, Process process, TTransport transport) {
         super(client);
         this.process = process;
         this.transport = transport;

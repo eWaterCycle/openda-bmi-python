@@ -21,7 +21,7 @@ import java.lang.ProcessBuilder.Redirect;
 import java.net.ServerSocket;
 import java.util.HashSet;
 
-import nl.esciencecenter.openda.bmi.thrift.BmiRaster;
+import nl.esciencecenter.openda.bmi.thrift.BmiRasterService;
 import nl.esciencecenter.openda.bmi.thrift.ModelException;
 
 import org.apache.thrift.TException;
@@ -115,7 +115,7 @@ public class BMIPythonModelInstance implements IModelInstance {
         throw new IOException("Failed to connect to model");
     }
 
-    private final BmiRaster.Client client;
+    private final BmiRasterService.Client client;
 
     private final Process process;
 
@@ -130,7 +130,7 @@ public class BMIPythonModelInstance implements IModelInstance {
         transport = connectToCode(port, process);
 
         TProtocol protocol = new TBinaryProtocol(transport);
-        client = new BmiRaster.Client(protocol);
+        client = new BmiRasterService.Client(protocol);
 
         client.initialize("");
     }

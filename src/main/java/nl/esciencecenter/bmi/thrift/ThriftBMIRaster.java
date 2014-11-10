@@ -23,8 +23,8 @@ import java.util.List;
 import nl.esciencecenter.bmi.BMIGridType;
 import nl.esciencecenter.bmi.BMIModelException;
 import nl.esciencecenter.bmi.BMIRaster;
-import nl.esciencecenter.openda.bmi.thrift.BmiRaster;
-import nl.esciencecenter.openda.bmi.thrift.BmiRaster.Client;
+import nl.esciencecenter.openda.bmi.thrift.BmiRasterService;
+import nl.esciencecenter.openda.bmi.thrift.BmiRasterService.Client;
 
 import org.apache.thrift.TException;
 
@@ -43,7 +43,7 @@ public abstract class ThriftBMIRaster implements BMIRaster {
      * 
      * @param client
      */
-    public ThriftBMIRaster(BmiRaster.Client client) {
+    public ThriftBMIRaster(BmiRasterService.Client client) {
         this.client = client;
     }
 
