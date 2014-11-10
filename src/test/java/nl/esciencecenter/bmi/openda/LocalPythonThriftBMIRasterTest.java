@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.esciencecenter.bmi.thrift;
+package nl.esciencecenter.bmi.openda;
 
 import static org.junit.Assert.*;
 
@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import nl.esciencecenter.bmi.BMIModelException;
 import nl.esciencecenter.bmi.BMIRaster;
+import nl.esciencecenter.bmi.openda.LocalPythonThriftBMIRaster;
 
 import org.junit.Test;
 

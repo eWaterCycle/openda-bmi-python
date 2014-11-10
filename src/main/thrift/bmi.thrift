@@ -1,4 +1,4 @@
-namespace java nl.esciencecenter.openda.bmi.thrift
+namespace java nl.esciencecenter.bmi.thrift
 namespace py bmi.thrift
 
 /*

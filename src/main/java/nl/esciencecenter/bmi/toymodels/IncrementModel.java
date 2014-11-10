@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.esciencecenter.openda.bmi.toymodels;
+package nl.esciencecenter.bmi.toymodels;
 
 import nl.esciencecenter.bmi.BMIGridType;
 import nl.esciencecenter.bmi.BMIModelException;

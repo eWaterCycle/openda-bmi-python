@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.esciencecenter.openda.bmi;
+package nl.esciencecenter.bmi.openda;
 
 import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-import nl.esciencecenter.openda.bmi.thrift.ModelException;
+import nl.esciencecenter.bmi.openda.BMIPythonModelInstance;
+import nl.esciencecenter.bmi.thrift.ModelException;
 
 import org.apache.thrift.TException;
 import org.junit.Test;

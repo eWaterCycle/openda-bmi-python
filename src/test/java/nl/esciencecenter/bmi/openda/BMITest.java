@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.esciencecenter.openda.bmi;
+package nl.esciencecenter.bmi.openda;
 
 import java.util.Arrays;
+
+import nl.esciencecenter.bmi.openda.BMIPythonModelInstance;
 
 import org.openda.interfaces.IModelInstance;
 import org.openda.interfaces.IPrevExchangeItem.Role;

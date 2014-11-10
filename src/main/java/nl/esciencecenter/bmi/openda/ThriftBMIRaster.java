@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.esciencecenter.bmi.thrift;
+package nl.esciencecenter.bmi.openda;
 
 import java.nio.ByteBuffer;
 import java.nio.DoubleBuffer;
@@ -23,8 +23,8 @@ import java.util.List;
 import nl.esciencecenter.bmi.BMIGridType;
 import nl.esciencecenter.bmi.BMIModelException;
 import nl.esciencecenter.bmi.BMIRaster;
-import nl.esciencecenter.openda.bmi.thrift.BmiRasterService;
-import nl.esciencecenter.openda.bmi.thrift.BmiRasterService.Client;
+import nl.esciencecenter.bmi.thrift.BmiRasterService;
+import nl.esciencecenter.bmi.thrift.BmiRasterService.Client;
 
 import org.apache.thrift.TException;
 

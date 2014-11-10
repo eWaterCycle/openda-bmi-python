@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.esciencecenter.openda.bmi.toymodels;
+package nl.esciencecenter.bmi.toymodels;
 
 import static org.junit.Assert.*;
-
 
 import java.util.Arrays;
 
@@ -24,13 +23,14 @@ import nl.esciencecenter.bmi.BMI;
 import nl.esciencecenter.bmi.BMIGridType;
 import nl.esciencecenter.bmi.BMIModelException;
 import nl.esciencecenter.bmi.BMIRaster;
+import nl.esciencecenter.bmi.toymodels.IncrementModel;
 
 import org.junit.Test;
 
 public class IncrementModelTest {
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#IncrementModel()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#IncrementModel()}.
      */
     @Test
     public void testIncrementModel() {
@@ -40,7 +40,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#initialize(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#initialize(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -54,7 +54,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#update()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#update()}.
      * 
      * @throws BMIModelException
      */
@@ -102,7 +102,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#update_until(double)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#update_until(double)}.
      * 
      * @throws Throwable
      */
@@ -166,7 +166,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#finalize_model()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#finalize_model()}.
      * 
      * @throws BMIModelException
      */
@@ -187,7 +187,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_input_var_names()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_input_var_names()}.
      * 
      * @throws BMIModelException
      *             in case of a failure
@@ -207,7 +207,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_output_var_names()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_output_var_names()}.
      * 
      * @throws BMIModelException
      *             in case of a failure
@@ -228,7 +228,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_var_type(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_type(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -246,7 +246,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_var_type(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_type(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -271,7 +271,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_var_units(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_units(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -289,7 +289,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_var_units(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_units(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -314,7 +314,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_var_rank(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_rank(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -332,7 +332,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_var_rank(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_rank(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -357,7 +357,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_start_time()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_start_time()}.
      * 
      * @throws BMIModelException
      */
@@ -376,7 +376,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_end_time()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_end_time()}.
      * 
      * @throws BMIModelException
      */
@@ -394,7 +394,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_current_time()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_current_time()}.
      * 
      * @throws BMIModelException
      */
@@ -415,7 +415,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#run_model()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#run_model()}.
      * 
      * @throws BMIModelException
      */
@@ -435,7 +435,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_component_name()}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_component_name()}.
      * 
      * @throws BMIModelException
      */
@@ -454,7 +454,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_double(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_double(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -479,7 +479,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_double(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_double(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -505,7 +505,7 @@ public class IncrementModelTest {
 
     /**
      * Test method for
-     * {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_double_at_indices(java.lang.String, int[])}.
+     * {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_double_at_indices(java.lang.String, int[])}.
      * 
      * @throws BMIModelException
      */
@@ -532,7 +532,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_double(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_double(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -558,7 +558,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#set_double(java.lang.String, double[])}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#set_double(java.lang.String, double[])}.
      * 
      * @throws BMIModelException
      */
@@ -589,7 +589,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#set_double(java.lang.String, double[])}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#set_double(java.lang.String, double[])}.
      * 
      * @throws BMIModelException
      */
@@ -616,7 +616,7 @@ public class IncrementModelTest {
 
     /**
      * Test method for
-     * {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#set_double_at_indices(java.lang.String, int[], double[])}.
+     * {@link nl.esciencecenter.bmi.toymodels.IncrementModel#set_double_at_indices(java.lang.String, int[], double[])}.
      * 
      * @throws BMIModelException
      */
@@ -654,7 +654,7 @@ public class IncrementModelTest {
 
     /**
      * Test method for
-     * {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#set_double_at_indices(java.lang.String, int[], double[])}.
+     * {@link nl.esciencecenter.bmi.toymodels.IncrementModel#set_double_at_indices(java.lang.String, int[], double[])}.
      */
     @Test
     public void testSet_double_at_indices_invalidVariable_exception() throws BMIModelException {
@@ -679,7 +679,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_grid_type(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_type(java.lang.String)}.
      * @throws BMIModelException 
      */
     @Test
@@ -696,7 +696,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_grid_type(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_type(java.lang.String)}.
      * 
      * @throws BMIModelException
      */
@@ -720,7 +720,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_grid_shape(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_shape(java.lang.String)}.
      * @throws BMIModelException 
      */
     @Test
@@ -740,7 +740,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_grid_shape(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_shape(java.lang.String)}.
      * @throws BMIModelException 
      */
     @Test
@@ -764,7 +764,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_grid_spacing(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_spacing(java.lang.String)}.
      * @throws BMIModelException 
      */
     @Test
@@ -783,7 +783,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_grid_spacing(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_spacing(java.lang.String)}.
      * @throws BMIModelException 
      */
     @Test
@@ -807,7 +807,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_grid_origin(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_origin(java.lang.String)}.
      * @throws BMIModelException 
      */
     @Test
@@ -826,7 +826,7 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for {@link nl.esciencecenter.openda.bmi.toymodels.IncrementModel#get_grid_origin(java.lang.String)}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_origin(java.lang.String)}.
      * @throws BMIModelException 
      */
     @Test

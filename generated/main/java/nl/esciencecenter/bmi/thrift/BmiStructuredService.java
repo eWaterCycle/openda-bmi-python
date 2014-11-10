@@ -4,7 +4,7 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  *  @generated
  */
-package nl.esciencecenter.openda.bmi.thrift;
+package nl.esciencecenter.bmi.thrift;
 
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
@@ -30,15 +30,17 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BmiRasterService {
+public class BmiStructuredService {
 
   public interface Iface extends BMIService.Iface {
 
     public List<Integer> get_grid_shape(String long_var_name) throws org.apache.thrift.TException;
 
-    public List<Double> get_grid_spacing(String long_var_name) throws org.apache.thrift.TException;
+    public List<Double> get_grid_x(String long_var_name) throws org.apache.thrift.TException;
 
-    public List<Double> get_grid_origin(String long_var_name) throws org.apache.thrift.TException;
+    public List<Double> get_grid_y(String long_var_name) throws org.apache.thrift.TException;
+
+    public List<Double> get_grid_z(String long_var_name) throws org.apache.thrift.TException;
 
   }
 
@@ -46,9 +48,11 @@ public class BmiRasterService {
 
     public void get_grid_shape(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.get_grid_shape_call> resultHandler) throws org.apache.thrift.TException;
 
-    public void get_grid_spacing(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.get_grid_spacing_call> resultHandler) throws org.apache.thrift.TException;
+    public void get_grid_x(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.get_grid_x_call> resultHandler) throws org.apache.thrift.TException;
 
-    public void get_grid_origin(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.get_grid_origin_call> resultHandler) throws org.apache.thrift.TException;
+    public void get_grid_y(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.get_grid_y_call> resultHandler) throws org.apache.thrift.TException;
+
+    public void get_grid_z(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<AsyncClient.get_grid_z_call> resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -95,50 +99,73 @@ public class BmiRasterService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "get_grid_shape failed: unknown result");
     }
 
-    public List<Double> get_grid_spacing(String long_var_name) throws org.apache.thrift.TException
+    public List<Double> get_grid_x(String long_var_name) throws org.apache.thrift.TException
     {
-      send_get_grid_spacing(long_var_name);
-      return recv_get_grid_spacing();
+      send_get_grid_x(long_var_name);
+      return recv_get_grid_x();
     }
 
-    public void send_get_grid_spacing(String long_var_name) throws org.apache.thrift.TException
+    public void send_get_grid_x(String long_var_name) throws org.apache.thrift.TException
     {
-      get_grid_spacing_args args = new get_grid_spacing_args();
+      get_grid_x_args args = new get_grid_x_args();
       args.setLong_var_name(long_var_name);
-      sendBase("get_grid_spacing", args);
+      sendBase("get_grid_x", args);
     }
 
-    public List<Double> recv_get_grid_spacing() throws org.apache.thrift.TException
+    public List<Double> recv_get_grid_x() throws org.apache.thrift.TException
     {
-      get_grid_spacing_result result = new get_grid_spacing_result();
-      receiveBase(result, "get_grid_spacing");
+      get_grid_x_result result = new get_grid_x_result();
+      receiveBase(result, "get_grid_x");
       if (result.isSetSuccess()) {
         return result.success;
       }
-      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "get_grid_spacing failed: unknown result");
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "get_grid_x failed: unknown result");
     }
 
-    public List<Double> get_grid_origin(String long_var_name) throws org.apache.thrift.TException
+    public List<Double> get_grid_y(String long_var_name) throws org.apache.thrift.TException
     {
-      send_get_grid_origin(long_var_name);
-      return recv_get_grid_origin();
+      send_get_grid_y(long_var_name);
+      return recv_get_grid_y();
     }
 
-    public void send_get_grid_origin(String long_var_name) throws org.apache.thrift.TException
+    public void send_get_grid_y(String long_var_name) throws org.apache.thrift.TException
     {
-      get_grid_origin_args args = new get_grid_origin_args();
+      get_grid_y_args args = new get_grid_y_args();
       args.setLong_var_name(long_var_name);
-      sendBase("get_grid_origin", args);
+      sendBase("get_grid_y", args);
     }
 
-    public List<Double> recv_get_grid_origin() throws org.apache.thrift.TException
+    public List<Double> recv_get_grid_y() throws org.apache.thrift.TException
     {
-      get_grid_origin_result result = new get_grid_origin_result();
-      receiveBase(result, "get_grid_origin");
+      get_grid_y_result result = new get_grid_y_result();
+      receiveBase(result, "get_grid_y");
       if (result.isSetSuccess()) {
         return result.success;
       }
-      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "get_grid_origin failed: unknown result");
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "get_grid_y failed: unknown result");
+    }
+
+    public List<Double> get_grid_z(String long_var_name) throws org.apache.thrift.TException
+    {
+      send_get_grid_z(long_var_name);
+      return recv_get_grid_z();
+    }
+
+    public void send_get_grid_z(String long_var_name) throws org.apache.thrift.TException
+    {
+      get_grid_z_args args = new get_grid_z_args();
+      args.setLong_var_name(long_var_name);
+      sendBase("get_grid_z", args);
+    }
+
+    public List<Double> recv_get_grid_z() throws org.apache.thrift.TException
+    {
+      get_grid_z_result result = new get_grid_z_result();
+      receiveBase(result, "get_grid_z");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "get_grid_z failed: unknown result");
     }
 
   }
@@ -191,23 +218,23 @@ public class BmiRasterService {
       }
     }
 
-    public void get_grid_spacing(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_spacing_call> resultHandler) throws org.apache.thrift.TException {
+    public void get_grid_x(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_x_call> resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      get_grid_spacing_call method_call = new get_grid_spacing_call(long_var_name, resultHandler, this, ___protocolFactory, ___transport);
+      get_grid_x_call method_call = new get_grid_x_call(long_var_name, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
-    public static class get_grid_spacing_call extends org.apache.thrift.async.TAsyncMethodCall {
+    public static class get_grid_x_call extends org.apache.thrift.async.TAsyncMethodCall {
       private String long_var_name;
-      public get_grid_spacing_call(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_spacing_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public get_grid_x_call(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_x_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.long_var_name = long_var_name;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
-        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("get_grid_spacing", org.apache.thrift.protocol.TMessageType.CALL, 0));
-        get_grid_spacing_args args = new get_grid_spacing_args();
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("get_grid_x", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        get_grid_x_args args = new get_grid_x_args();
         args.setLong_var_name(long_var_name);
         args.write(prot);
         prot.writeMessageEnd();
@@ -219,27 +246,27 @@ public class BmiRasterService {
         }
         org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
         org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
-        return (new Client(prot)).recv_get_grid_spacing();
+        return (new Client(prot)).recv_get_grid_x();
       }
     }
 
-    public void get_grid_origin(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_origin_call> resultHandler) throws org.apache.thrift.TException {
+    public void get_grid_y(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_y_call> resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      get_grid_origin_call method_call = new get_grid_origin_call(long_var_name, resultHandler, this, ___protocolFactory, ___transport);
+      get_grid_y_call method_call = new get_grid_y_call(long_var_name, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
-    public static class get_grid_origin_call extends org.apache.thrift.async.TAsyncMethodCall {
+    public static class get_grid_y_call extends org.apache.thrift.async.TAsyncMethodCall {
       private String long_var_name;
-      public get_grid_origin_call(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_origin_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public get_grid_y_call(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_y_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.long_var_name = long_var_name;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
-        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("get_grid_origin", org.apache.thrift.protocol.TMessageType.CALL, 0));
-        get_grid_origin_args args = new get_grid_origin_args();
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("get_grid_y", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        get_grid_y_args args = new get_grid_y_args();
         args.setLong_var_name(long_var_name);
         args.write(prot);
         prot.writeMessageEnd();
@@ -251,7 +278,39 @@ public class BmiRasterService {
         }
         org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
         org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
-        return (new Client(prot)).recv_get_grid_origin();
+        return (new Client(prot)).recv_get_grid_y();
+      }
+    }
+
+    public void get_grid_z(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_z_call> resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      get_grid_z_call method_call = new get_grid_z_call(long_var_name, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class get_grid_z_call extends org.apache.thrift.async.TAsyncMethodCall {
+      private String long_var_name;
+      public get_grid_z_call(String long_var_name, org.apache.thrift.async.AsyncMethodCallback<get_grid_z_call> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.long_var_name = long_var_name;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("get_grid_z", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        get_grid_z_args args = new get_grid_z_args();
+        args.setLong_var_name(long_var_name);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public List<Double> getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_get_grid_z();
       }
     }
 
@@ -269,8 +328,9 @@ public class BmiRasterService {
 
     private static <I extends Iface> Map<String,  org.apache.thrift.ProcessFunction<I, ? extends  org.apache.thrift.TBase>> getProcessMap(Map<String,  org.apache.thrift.ProcessFunction<I, ? extends  org.apache.thrift.TBase>> processMap) {
       processMap.put("get_grid_shape", new get_grid_shape());
-      processMap.put("get_grid_spacing", new get_grid_spacing());
-      processMap.put("get_grid_origin", new get_grid_origin());
+      processMap.put("get_grid_x", new get_grid_x());
+      processMap.put("get_grid_y", new get_grid_y());
+      processMap.put("get_grid_z", new get_grid_z());
       return processMap;
     }
 
@@ -294,42 +354,62 @@ public class BmiRasterService {
       }
     }
 
-    public static class get_grid_spacing<I extends Iface> extends org.apache.thrift.ProcessFunction<I, get_grid_spacing_args> {
-      public get_grid_spacing() {
-        super("get_grid_spacing");
+    public static class get_grid_x<I extends Iface> extends org.apache.thrift.ProcessFunction<I, get_grid_x_args> {
+      public get_grid_x() {
+        super("get_grid_x");
       }
 
-      public get_grid_spacing_args getEmptyArgsInstance() {
-        return new get_grid_spacing_args();
+      public get_grid_x_args getEmptyArgsInstance() {
+        return new get_grid_x_args();
       }
 
       protected boolean isOneway() {
         return false;
       }
 
-      public get_grid_spacing_result getResult(I iface, get_grid_spacing_args args) throws org.apache.thrift.TException {
-        get_grid_spacing_result result = new get_grid_spacing_result();
-        result.success = iface.get_grid_spacing(args.long_var_name);
+      public get_grid_x_result getResult(I iface, get_grid_x_args args) throws org.apache.thrift.TException {
+        get_grid_x_result result = new get_grid_x_result();
+        result.success = iface.get_grid_x(args.long_var_name);
         return result;
       }
     }
 
-    public static class get_grid_origin<I extends Iface> extends org.apache.thrift.ProcessFunction<I, get_grid_origin_args> {
-      public get_grid_origin() {
-        super("get_grid_origin");
+    public static class get_grid_y<I extends Iface> extends org.apache.thrift.ProcessFunction<I, get_grid_y_args> {
+      public get_grid_y() {
+        super("get_grid_y");
       }
 
-      public get_grid_origin_args getEmptyArgsInstance() {
-        return new get_grid_origin_args();
+      public get_grid_y_args getEmptyArgsInstance() {
+        return new get_grid_y_args();
       }
 
       protected boolean isOneway() {
         return false;
       }
 
-      public get_grid_origin_result getResult(I iface, get_grid_origin_args args) throws org.apache.thrift.TException {
-        get_grid_origin_result result = new get_grid_origin_result();
-        result.success = iface.get_grid_origin(args.long_var_name);
+      public get_grid_y_result getResult(I iface, get_grid_y_args args) throws org.apache.thrift.TException {
+        get_grid_y_result result = new get_grid_y_result();
+        result.success = iface.get_grid_y(args.long_var_name);
+        return result;
+      }
+    }
+
+    public static class get_grid_z<I extends Iface> extends org.apache.thrift.ProcessFunction<I, get_grid_z_args> {
+      public get_grid_z() {
+        super("get_grid_z");
+      }
+
+      public get_grid_z_args getEmptyArgsInstance() {
+        return new get_grid_z_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public get_grid_z_result getResult(I iface, get_grid_z_args args) throws org.apache.thrift.TException {
+        get_grid_z_result result = new get_grid_z_result();
+        result.success = iface.get_grid_z(args.long_var_name);
         return result;
       }
     }
@@ -999,13 +1079,13 @@ public class BmiRasterService {
             case 0: // SUCCESS
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
-                  org.apache.thrift.protocol.TList _list32 = iprot.readListBegin();
-                  struct.success = new ArrayList<Integer>(_list32.size);
-                  for (int _i33 = 0; _i33 < _list32.size; ++_i33)
+                  org.apache.thrift.protocol.TList _list88 = iprot.readListBegin();
+                  struct.success = new ArrayList<Integer>(_list88.size);
+                  for (int _i89 = 0; _i89 < _list88.size; ++_i89)
                   {
-                    int _elem34; // required
-                    _elem34 = iprot.readI32();
-                    struct.success.add(_elem34);
+                    int _elem90; // required
+                    _elem90 = iprot.readI32();
+                    struct.success.add(_elem90);
                   }
                   iprot.readListEnd();
                 }
@@ -1033,9 +1113,9 @@ public class BmiRasterService {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.I32, struct.success.size()));
-            for (int _iter35 : struct.success)
+            for (int _iter91 : struct.success)
             {
-              oprot.writeI32(_iter35);
+              oprot.writeI32(_iter91);
             }
             oprot.writeListEnd();
           }
@@ -1066,9 +1146,9 @@ public class BmiRasterService {
         if (struct.isSetSuccess()) {
           {
             oprot.writeI32(struct.success.size());
-            for (int _iter36 : struct.success)
+            for (int _iter92 : struct.success)
             {
-              oprot.writeI32(_iter36);
+              oprot.writeI32(_iter92);
             }
           }
         }
@@ -1080,13 +1160,13 @@ public class BmiRasterService {
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           {
-            org.apache.thrift.protocol.TList _list37 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.I32, iprot.readI32());
-            struct.success = new ArrayList<Integer>(_list37.size);
-            for (int _i38 = 0; _i38 < _list37.size; ++_i38)
+            org.apache.thrift.protocol.TList _list93 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.I32, iprot.readI32());
+            struct.success = new ArrayList<Integer>(_list93.size);
+            for (int _i94 = 0; _i94 < _list93.size; ++_i94)
             {
-              int _elem39; // required
-              _elem39 = iprot.readI32();
-              struct.success.add(_elem39);
+              int _elem95; // required
+              _elem95 = iprot.readI32();
+              struct.success.add(_elem95);
             }
           }
           struct.setSuccessIsSet(true);
@@ -1096,15 +1176,15 @@ public class BmiRasterService {
 
   }
 
-  public static class get_grid_spacing_args implements org.apache.thrift.TBase<get_grid_spacing_args, get_grid_spacing_args._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_spacing_args");
+  public static class get_grid_x_args implements org.apache.thrift.TBase<get_grid_x_args, get_grid_x_args._Fields>, java.io.Serializable, Cloneable   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_x_args");
 
     private static final org.apache.thrift.protocol.TField LONG_VAR_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("long_var_name", org.apache.thrift.protocol.TType.STRING, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
-      schemes.put(StandardScheme.class, new get_grid_spacing_argsStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new get_grid_spacing_argsTupleSchemeFactory());
+      schemes.put(StandardScheme.class, new get_grid_x_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new get_grid_x_argsTupleSchemeFactory());
     }
 
     public String long_var_name; // required
@@ -1174,13 +1254,13 @@ public class BmiRasterService {
       tmpMap.put(_Fields.LONG_VAR_NAME, new org.apache.thrift.meta_data.FieldMetaData("long_var_name", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_spacing_args.class, metaDataMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_x_args.class, metaDataMap);
     }
 
-    public get_grid_spacing_args() {
+    public get_grid_x_args() {
     }
 
-    public get_grid_spacing_args(
+    public get_grid_x_args(
       String long_var_name)
     {
       this();
@@ -1190,14 +1270,14 @@ public class BmiRasterService {
     /**
      * Performs a deep copy on <i>other</i>.
      */
-    public get_grid_spacing_args(get_grid_spacing_args other) {
+    public get_grid_x_args(get_grid_x_args other) {
       if (other.isSetLong_var_name()) {
         this.long_var_name = other.long_var_name;
       }
     }
 
-    public get_grid_spacing_args deepCopy() {
-      return new get_grid_spacing_args(this);
+    public get_grid_x_args deepCopy() {
+      return new get_grid_x_args(this);
     }
 
     @Override
@@ -1209,7 +1289,7 @@ public class BmiRasterService {
       return this.long_var_name;
     }
 
-    public get_grid_spacing_args setLong_var_name(String long_var_name) {
+    public get_grid_x_args setLong_var_name(String long_var_name) {
       this.long_var_name = long_var_name;
       return this;
     }
@@ -1268,12 +1348,12 @@ public class BmiRasterService {
     public boolean equals(Object that) {
       if (that == null)
         return false;
-      if (that instanceof get_grid_spacing_args)
-        return this.equals((get_grid_spacing_args)that);
+      if (that instanceof get_grid_x_args)
+        return this.equals((get_grid_x_args)that);
       return false;
     }
 
-    public boolean equals(get_grid_spacing_args that) {
+    public boolean equals(get_grid_x_args that) {
       if (that == null)
         return false;
 
@@ -1294,13 +1374,13 @@ public class BmiRasterService {
       return 0;
     }
 
-    public int compareTo(get_grid_spacing_args other) {
+    public int compareTo(get_grid_x_args other) {
       if (!getClass().equals(other.getClass())) {
         return getClass().getName().compareTo(other.getClass().getName());
       }
 
       int lastComparison = 0;
-      get_grid_spacing_args typedOther = (get_grid_spacing_args)other;
+      get_grid_x_args typedOther = (get_grid_x_args)other;
 
       lastComparison = Boolean.valueOf(isSetLong_var_name()).compareTo(typedOther.isSetLong_var_name());
       if (lastComparison != 0) {
@@ -1329,7 +1409,7 @@ public class BmiRasterService {
 
     @Override
     public String toString() {
-      StringBuilder sb = new StringBuilder("get_grid_spacing_args(");
+      StringBuilder sb = new StringBuilder("get_grid_x_args(");
       boolean first = true;
 
       sb.append("long_var_name:");
@@ -1364,15 +1444,15 @@ public class BmiRasterService {
       }
     }
 
-    private static class get_grid_spacing_argsStandardSchemeFactory implements SchemeFactory {
-      public get_grid_spacing_argsStandardScheme getScheme() {
-        return new get_grid_spacing_argsStandardScheme();
+    private static class get_grid_x_argsStandardSchemeFactory implements SchemeFactory {
+      public get_grid_x_argsStandardScheme getScheme() {
+        return new get_grid_x_argsStandardScheme();
       }
     }
 
-    private static class get_grid_spacing_argsStandardScheme extends StandardScheme<get_grid_spacing_args> {
+    private static class get_grid_x_argsStandardScheme extends StandardScheme<get_grid_x_args> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_spacing_args struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_x_args struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -1401,7 +1481,7 @@ public class BmiRasterService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_spacing_args struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_x_args struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -1416,16 +1496,16 @@ public class BmiRasterService {
 
     }
 
-    private static class get_grid_spacing_argsTupleSchemeFactory implements SchemeFactory {
-      public get_grid_spacing_argsTupleScheme getScheme() {
-        return new get_grid_spacing_argsTupleScheme();
+    private static class get_grid_x_argsTupleSchemeFactory implements SchemeFactory {
+      public get_grid_x_argsTupleScheme getScheme() {
+        return new get_grid_x_argsTupleScheme();
       }
     }
 
-    private static class get_grid_spacing_argsTupleScheme extends TupleScheme<get_grid_spacing_args> {
+    private static class get_grid_x_argsTupleScheme extends TupleScheme<get_grid_x_args> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_spacing_args struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_x_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetLong_var_name()) {
@@ -1438,7 +1518,7 @@ public class BmiRasterService {
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_spacing_args struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_x_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
@@ -1450,15 +1530,15 @@ public class BmiRasterService {
 
   }
 
-  public static class get_grid_spacing_result implements org.apache.thrift.TBase<get_grid_spacing_result, get_grid_spacing_result._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_spacing_result");
+  public static class get_grid_x_result implements org.apache.thrift.TBase<get_grid_x_result, get_grid_x_result._Fields>, java.io.Serializable, Cloneable   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_x_result");
 
     private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short)0);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
-      schemes.put(StandardScheme.class, new get_grid_spacing_resultStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new get_grid_spacing_resultTupleSchemeFactory());
+      schemes.put(StandardScheme.class, new get_grid_x_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new get_grid_x_resultTupleSchemeFactory());
     }
 
     public List<Double> success; // required
@@ -1529,13 +1609,13 @@ public class BmiRasterService {
           new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
               new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE))));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_spacing_result.class, metaDataMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_x_result.class, metaDataMap);
     }
 
-    public get_grid_spacing_result() {
+    public get_grid_x_result() {
     }
 
-    public get_grid_spacing_result(
+    public get_grid_x_result(
       List<Double> success)
     {
       this();
@@ -1545,7 +1625,7 @@ public class BmiRasterService {
     /**
      * Performs a deep copy on <i>other</i>.
      */
-    public get_grid_spacing_result(get_grid_spacing_result other) {
+    public get_grid_x_result(get_grid_x_result other) {
       if (other.isSetSuccess()) {
         List<Double> __this__success = new ArrayList<Double>();
         for (Double other_element : other.success) {
@@ -1555,8 +1635,8 @@ public class BmiRasterService {
       }
     }
 
-    public get_grid_spacing_result deepCopy() {
-      return new get_grid_spacing_result(this);
+    public get_grid_x_result deepCopy() {
+      return new get_grid_x_result(this);
     }
 
     @Override
@@ -1583,7 +1663,7 @@ public class BmiRasterService {
       return this.success;
     }
 
-    public get_grid_spacing_result setSuccess(List<Double> success) {
+    public get_grid_x_result setSuccess(List<Double> success) {
       this.success = success;
       return this;
     }
@@ -1642,12 +1722,12 @@ public class BmiRasterService {
     public boolean equals(Object that) {
       if (that == null)
         return false;
-      if (that instanceof get_grid_spacing_result)
-        return this.equals((get_grid_spacing_result)that);
+      if (that instanceof get_grid_x_result)
+        return this.equals((get_grid_x_result)that);
       return false;
     }
 
-    public boolean equals(get_grid_spacing_result that) {
+    public boolean equals(get_grid_x_result that) {
       if (that == null)
         return false;
 
@@ -1668,13 +1748,13 @@ public class BmiRasterService {
       return 0;
     }
 
-    public int compareTo(get_grid_spacing_result other) {
+    public int compareTo(get_grid_x_result other) {
       if (!getClass().equals(other.getClass())) {
         return getClass().getName().compareTo(other.getClass().getName());
       }
 
       int lastComparison = 0;
-      get_grid_spacing_result typedOther = (get_grid_spacing_result)other;
+      get_grid_x_result typedOther = (get_grid_x_result)other;
 
       lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
       if (lastComparison != 0) {
@@ -1703,7 +1783,7 @@ public class BmiRasterService {
 
     @Override
     public String toString() {
-      StringBuilder sb = new StringBuilder("get_grid_spacing_result(");
+      StringBuilder sb = new StringBuilder("get_grid_x_result(");
       boolean first = true;
 
       sb.append("success:");
@@ -1738,15 +1818,15 @@ public class BmiRasterService {
       }
     }
 
-    private static class get_grid_spacing_resultStandardSchemeFactory implements SchemeFactory {
-      public get_grid_spacing_resultStandardScheme getScheme() {
-        return new get_grid_spacing_resultStandardScheme();
+    private static class get_grid_x_resultStandardSchemeFactory implements SchemeFactory {
+      public get_grid_x_resultStandardScheme getScheme() {
+        return new get_grid_x_resultStandardScheme();
       }
     }
 
-    private static class get_grid_spacing_resultStandardScheme extends StandardScheme<get_grid_spacing_result> {
+    private static class get_grid_x_resultStandardScheme extends StandardScheme<get_grid_x_result> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_spacing_result struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_x_result struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -1759,13 +1839,13 @@ public class BmiRasterService {
             case 0: // SUCCESS
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
-                  org.apache.thrift.protocol.TList _list40 = iprot.readListBegin();
-                  struct.success = new ArrayList<Double>(_list40.size);
-                  for (int _i41 = 0; _i41 < _list40.size; ++_i41)
+                  org.apache.thrift.protocol.TList _list96 = iprot.readListBegin();
+                  struct.success = new ArrayList<Double>(_list96.size);
+                  for (int _i97 = 0; _i97 < _list96.size; ++_i97)
                   {
-                    double _elem42; // required
-                    _elem42 = iprot.readDouble();
-                    struct.success.add(_elem42);
+                    double _elem98; // required
+                    _elem98 = iprot.readDouble();
+                    struct.success.add(_elem98);
                   }
                   iprot.readListEnd();
                 }
@@ -1785,7 +1865,7 @@ public class BmiRasterService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_spacing_result struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_x_result struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -1793,9 +1873,9 @@ public class BmiRasterService {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, struct.success.size()));
-            for (double _iter43 : struct.success)
+            for (double _iter99 : struct.success)
             {
-              oprot.writeDouble(_iter43);
+              oprot.writeDouble(_iter99);
             }
             oprot.writeListEnd();
           }
@@ -1807,16 +1887,16 @@ public class BmiRasterService {
 
     }
 
-    private static class get_grid_spacing_resultTupleSchemeFactory implements SchemeFactory {
-      public get_grid_spacing_resultTupleScheme getScheme() {
-        return new get_grid_spacing_resultTupleScheme();
+    private static class get_grid_x_resultTupleSchemeFactory implements SchemeFactory {
+      public get_grid_x_resultTupleScheme getScheme() {
+        return new get_grid_x_resultTupleScheme();
       }
     }
 
-    private static class get_grid_spacing_resultTupleScheme extends TupleScheme<get_grid_spacing_result> {
+    private static class get_grid_x_resultTupleScheme extends TupleScheme<get_grid_x_result> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_spacing_result struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_x_result struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetSuccess()) {
@@ -1826,27 +1906,27 @@ public class BmiRasterService {
         if (struct.isSetSuccess()) {
           {
             oprot.writeI32(struct.success.size());
-            for (double _iter44 : struct.success)
+            for (double _iter100 : struct.success)
             {
-              oprot.writeDouble(_iter44);
+              oprot.writeDouble(_iter100);
             }
           }
         }
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_spacing_result struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_x_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           {
-            org.apache.thrift.protocol.TList _list45 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
-            struct.success = new ArrayList<Double>(_list45.size);
-            for (int _i46 = 0; _i46 < _list45.size; ++_i46)
+            org.apache.thrift.protocol.TList _list101 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
+            struct.success = new ArrayList<Double>(_list101.size);
+            for (int _i102 = 0; _i102 < _list101.size; ++_i102)
             {
-              double _elem47; // required
-              _elem47 = iprot.readDouble();
-              struct.success.add(_elem47);
+              double _elem103; // required
+              _elem103 = iprot.readDouble();
+              struct.success.add(_elem103);
             }
           }
           struct.setSuccessIsSet(true);
@@ -1856,15 +1936,15 @@ public class BmiRasterService {
 
   }
 
-  public static class get_grid_origin_args implements org.apache.thrift.TBase<get_grid_origin_args, get_grid_origin_args._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_origin_args");
+  public static class get_grid_y_args implements org.apache.thrift.TBase<get_grid_y_args, get_grid_y_args._Fields>, java.io.Serializable, Cloneable   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_y_args");
 
     private static final org.apache.thrift.protocol.TField LONG_VAR_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("long_var_name", org.apache.thrift.protocol.TType.STRING, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
-      schemes.put(StandardScheme.class, new get_grid_origin_argsStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new get_grid_origin_argsTupleSchemeFactory());
+      schemes.put(StandardScheme.class, new get_grid_y_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new get_grid_y_argsTupleSchemeFactory());
     }
 
     public String long_var_name; // required
@@ -1934,13 +2014,13 @@ public class BmiRasterService {
       tmpMap.put(_Fields.LONG_VAR_NAME, new org.apache.thrift.meta_data.FieldMetaData("long_var_name", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_origin_args.class, metaDataMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_y_args.class, metaDataMap);
     }
 
-    public get_grid_origin_args() {
+    public get_grid_y_args() {
     }
 
-    public get_grid_origin_args(
+    public get_grid_y_args(
       String long_var_name)
     {
       this();
@@ -1950,14 +2030,14 @@ public class BmiRasterService {
     /**
      * Performs a deep copy on <i>other</i>.
      */
-    public get_grid_origin_args(get_grid_origin_args other) {
+    public get_grid_y_args(get_grid_y_args other) {
       if (other.isSetLong_var_name()) {
         this.long_var_name = other.long_var_name;
       }
     }
 
-    public get_grid_origin_args deepCopy() {
-      return new get_grid_origin_args(this);
+    public get_grid_y_args deepCopy() {
+      return new get_grid_y_args(this);
     }
 
     @Override
@@ -1969,7 +2049,7 @@ public class BmiRasterService {
       return this.long_var_name;
     }
 
-    public get_grid_origin_args setLong_var_name(String long_var_name) {
+    public get_grid_y_args setLong_var_name(String long_var_name) {
       this.long_var_name = long_var_name;
       return this;
     }
@@ -2028,12 +2108,12 @@ public class BmiRasterService {
     public boolean equals(Object that) {
       if (that == null)
         return false;
-      if (that instanceof get_grid_origin_args)
-        return this.equals((get_grid_origin_args)that);
+      if (that instanceof get_grid_y_args)
+        return this.equals((get_grid_y_args)that);
       return false;
     }
 
-    public boolean equals(get_grid_origin_args that) {
+    public boolean equals(get_grid_y_args that) {
       if (that == null)
         return false;
 
@@ -2054,13 +2134,13 @@ public class BmiRasterService {
       return 0;
     }
 
-    public int compareTo(get_grid_origin_args other) {
+    public int compareTo(get_grid_y_args other) {
       if (!getClass().equals(other.getClass())) {
         return getClass().getName().compareTo(other.getClass().getName());
       }
 
       int lastComparison = 0;
-      get_grid_origin_args typedOther = (get_grid_origin_args)other;
+      get_grid_y_args typedOther = (get_grid_y_args)other;
 
       lastComparison = Boolean.valueOf(isSetLong_var_name()).compareTo(typedOther.isSetLong_var_name());
       if (lastComparison != 0) {
@@ -2089,7 +2169,7 @@ public class BmiRasterService {
 
     @Override
     public String toString() {
-      StringBuilder sb = new StringBuilder("get_grid_origin_args(");
+      StringBuilder sb = new StringBuilder("get_grid_y_args(");
       boolean first = true;
 
       sb.append("long_var_name:");
@@ -2124,15 +2204,15 @@ public class BmiRasterService {
       }
     }
 
-    private static class get_grid_origin_argsStandardSchemeFactory implements SchemeFactory {
-      public get_grid_origin_argsStandardScheme getScheme() {
-        return new get_grid_origin_argsStandardScheme();
+    private static class get_grid_y_argsStandardSchemeFactory implements SchemeFactory {
+      public get_grid_y_argsStandardScheme getScheme() {
+        return new get_grid_y_argsStandardScheme();
       }
     }
 
-    private static class get_grid_origin_argsStandardScheme extends StandardScheme<get_grid_origin_args> {
+    private static class get_grid_y_argsStandardScheme extends StandardScheme<get_grid_y_args> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_origin_args struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_y_args struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -2161,7 +2241,7 @@ public class BmiRasterService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_origin_args struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_y_args struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -2176,16 +2256,16 @@ public class BmiRasterService {
 
     }
 
-    private static class get_grid_origin_argsTupleSchemeFactory implements SchemeFactory {
-      public get_grid_origin_argsTupleScheme getScheme() {
-        return new get_grid_origin_argsTupleScheme();
+    private static class get_grid_y_argsTupleSchemeFactory implements SchemeFactory {
+      public get_grid_y_argsTupleScheme getScheme() {
+        return new get_grid_y_argsTupleScheme();
       }
     }
 
-    private static class get_grid_origin_argsTupleScheme extends TupleScheme<get_grid_origin_args> {
+    private static class get_grid_y_argsTupleScheme extends TupleScheme<get_grid_y_args> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_origin_args struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_y_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetLong_var_name()) {
@@ -2198,7 +2278,7 @@ public class BmiRasterService {
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_origin_args struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_y_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
@@ -2210,15 +2290,15 @@ public class BmiRasterService {
 
   }
 
-  public static class get_grid_origin_result implements org.apache.thrift.TBase<get_grid_origin_result, get_grid_origin_result._Fields>, java.io.Serializable, Cloneable   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_origin_result");
+  public static class get_grid_y_result implements org.apache.thrift.TBase<get_grid_y_result, get_grid_y_result._Fields>, java.io.Serializable, Cloneable   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_y_result");
 
     private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short)0);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
-      schemes.put(StandardScheme.class, new get_grid_origin_resultStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new get_grid_origin_resultTupleSchemeFactory());
+      schemes.put(StandardScheme.class, new get_grid_y_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new get_grid_y_resultTupleSchemeFactory());
     }
 
     public List<Double> success; // required
@@ -2289,13 +2369,13 @@ public class BmiRasterService {
           new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
               new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE))));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_origin_result.class, metaDataMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_y_result.class, metaDataMap);
     }
 
-    public get_grid_origin_result() {
+    public get_grid_y_result() {
     }
 
-    public get_grid_origin_result(
+    public get_grid_y_result(
       List<Double> success)
     {
       this();
@@ -2305,7 +2385,7 @@ public class BmiRasterService {
     /**
      * Performs a deep copy on <i>other</i>.
      */
-    public get_grid_origin_result(get_grid_origin_result other) {
+    public get_grid_y_result(get_grid_y_result other) {
       if (other.isSetSuccess()) {
         List<Double> __this__success = new ArrayList<Double>();
         for (Double other_element : other.success) {
@@ -2315,8 +2395,8 @@ public class BmiRasterService {
       }
     }
 
-    public get_grid_origin_result deepCopy() {
-      return new get_grid_origin_result(this);
+    public get_grid_y_result deepCopy() {
+      return new get_grid_y_result(this);
     }
 
     @Override
@@ -2343,7 +2423,7 @@ public class BmiRasterService {
       return this.success;
     }
 
-    public get_grid_origin_result setSuccess(List<Double> success) {
+    public get_grid_y_result setSuccess(List<Double> success) {
       this.success = success;
       return this;
     }
@@ -2402,12 +2482,12 @@ public class BmiRasterService {
     public boolean equals(Object that) {
       if (that == null)
         return false;
-      if (that instanceof get_grid_origin_result)
-        return this.equals((get_grid_origin_result)that);
+      if (that instanceof get_grid_y_result)
+        return this.equals((get_grid_y_result)that);
       return false;
     }
 
-    public boolean equals(get_grid_origin_result that) {
+    public boolean equals(get_grid_y_result that) {
       if (that == null)
         return false;
 
@@ -2428,13 +2508,13 @@ public class BmiRasterService {
       return 0;
     }
 
-    public int compareTo(get_grid_origin_result other) {
+    public int compareTo(get_grid_y_result other) {
       if (!getClass().equals(other.getClass())) {
         return getClass().getName().compareTo(other.getClass().getName());
       }
 
       int lastComparison = 0;
-      get_grid_origin_result typedOther = (get_grid_origin_result)other;
+      get_grid_y_result typedOther = (get_grid_y_result)other;
 
       lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
       if (lastComparison != 0) {
@@ -2463,7 +2543,7 @@ public class BmiRasterService {
 
     @Override
     public String toString() {
-      StringBuilder sb = new StringBuilder("get_grid_origin_result(");
+      StringBuilder sb = new StringBuilder("get_grid_y_result(");
       boolean first = true;
 
       sb.append("success:");
@@ -2498,15 +2578,15 @@ public class BmiRasterService {
       }
     }
 
-    private static class get_grid_origin_resultStandardSchemeFactory implements SchemeFactory {
-      public get_grid_origin_resultStandardScheme getScheme() {
-        return new get_grid_origin_resultStandardScheme();
+    private static class get_grid_y_resultStandardSchemeFactory implements SchemeFactory {
+      public get_grid_y_resultStandardScheme getScheme() {
+        return new get_grid_y_resultStandardScheme();
       }
     }
 
-    private static class get_grid_origin_resultStandardScheme extends StandardScheme<get_grid_origin_result> {
+    private static class get_grid_y_resultStandardScheme extends StandardScheme<get_grid_y_result> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_origin_result struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_y_result struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -2519,13 +2599,13 @@ public class BmiRasterService {
             case 0: // SUCCESS
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
-                  org.apache.thrift.protocol.TList _list48 = iprot.readListBegin();
-                  struct.success = new ArrayList<Double>(_list48.size);
-                  for (int _i49 = 0; _i49 < _list48.size; ++_i49)
+                  org.apache.thrift.protocol.TList _list104 = iprot.readListBegin();
+                  struct.success = new ArrayList<Double>(_list104.size);
+                  for (int _i105 = 0; _i105 < _list104.size; ++_i105)
                   {
-                    double _elem50; // required
-                    _elem50 = iprot.readDouble();
-                    struct.success.add(_elem50);
+                    double _elem106; // required
+                    _elem106 = iprot.readDouble();
+                    struct.success.add(_elem106);
                   }
                   iprot.readListEnd();
                 }
@@ -2545,7 +2625,7 @@ public class BmiRasterService {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_origin_result struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_y_result struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -2553,9 +2633,9 @@ public class BmiRasterService {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, struct.success.size()));
-            for (double _iter51 : struct.success)
+            for (double _iter107 : struct.success)
             {
-              oprot.writeDouble(_iter51);
+              oprot.writeDouble(_iter107);
             }
             oprot.writeListEnd();
           }
@@ -2567,16 +2647,16 @@ public class BmiRasterService {
 
     }
 
-    private static class get_grid_origin_resultTupleSchemeFactory implements SchemeFactory {
-      public get_grid_origin_resultTupleScheme getScheme() {
-        return new get_grid_origin_resultTupleScheme();
+    private static class get_grid_y_resultTupleSchemeFactory implements SchemeFactory {
+      public get_grid_y_resultTupleScheme getScheme() {
+        return new get_grid_y_resultTupleScheme();
       }
     }
 
-    private static class get_grid_origin_resultTupleScheme extends TupleScheme<get_grid_origin_result> {
+    private static class get_grid_y_resultTupleScheme extends TupleScheme<get_grid_y_result> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_origin_result struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_y_result struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetSuccess()) {
@@ -2586,27 +2666,787 @@ public class BmiRasterService {
         if (struct.isSetSuccess()) {
           {
             oprot.writeI32(struct.success.size());
-            for (double _iter52 : struct.success)
+            for (double _iter108 : struct.success)
             {
-              oprot.writeDouble(_iter52);
+              oprot.writeDouble(_iter108);
             }
           }
         }
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_origin_result struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_y_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           {
-            org.apache.thrift.protocol.TList _list53 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
-            struct.success = new ArrayList<Double>(_list53.size);
-            for (int _i54 = 0; _i54 < _list53.size; ++_i54)
+            org.apache.thrift.protocol.TList _list109 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
+            struct.success = new ArrayList<Double>(_list109.size);
+            for (int _i110 = 0; _i110 < _list109.size; ++_i110)
             {
-              double _elem55; // required
-              _elem55 = iprot.readDouble();
-              struct.success.add(_elem55);
+              double _elem111; // required
+              _elem111 = iprot.readDouble();
+              struct.success.add(_elem111);
+            }
+          }
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class get_grid_z_args implements org.apache.thrift.TBase<get_grid_z_args, get_grid_z_args._Fields>, java.io.Serializable, Cloneable   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_z_args");
+
+    private static final org.apache.thrift.protocol.TField LONG_VAR_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("long_var_name", org.apache.thrift.protocol.TType.STRING, (short)1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new get_grid_z_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new get_grid_z_argsTupleSchemeFactory());
+    }
+
+    public String long_var_name; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      LONG_VAR_NAME((short)1, "long_var_name");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // LONG_VAR_NAME
+            return LONG_VAR_NAME;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.LONG_VAR_NAME, new org.apache.thrift.meta_data.FieldMetaData("long_var_name", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_z_args.class, metaDataMap);
+    }
+
+    public get_grid_z_args() {
+    }
+
+    public get_grid_z_args(
+      String long_var_name)
+    {
+      this();
+      this.long_var_name = long_var_name;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public get_grid_z_args(get_grid_z_args other) {
+      if (other.isSetLong_var_name()) {
+        this.long_var_name = other.long_var_name;
+      }
+    }
+
+    public get_grid_z_args deepCopy() {
+      return new get_grid_z_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.long_var_name = null;
+    }
+
+    public String getLong_var_name() {
+      return this.long_var_name;
+    }
+
+    public get_grid_z_args setLong_var_name(String long_var_name) {
+      this.long_var_name = long_var_name;
+      return this;
+    }
+
+    public void unsetLong_var_name() {
+      this.long_var_name = null;
+    }
+
+    /** Returns true if field long_var_name is set (has been assigned a value) and false otherwise */
+    public boolean isSetLong_var_name() {
+      return this.long_var_name != null;
+    }
+
+    public void setLong_var_nameIsSet(boolean value) {
+      if (!value) {
+        this.long_var_name = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case LONG_VAR_NAME:
+        if (value == null) {
+          unsetLong_var_name();
+        } else {
+          setLong_var_name((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case LONG_VAR_NAME:
+        return getLong_var_name();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case LONG_VAR_NAME:
+        return isSetLong_var_name();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof get_grid_z_args)
+        return this.equals((get_grid_z_args)that);
+      return false;
+    }
+
+    public boolean equals(get_grid_z_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_long_var_name = true && this.isSetLong_var_name();
+      boolean that_present_long_var_name = true && that.isSetLong_var_name();
+      if (this_present_long_var_name || that_present_long_var_name) {
+        if (!(this_present_long_var_name && that_present_long_var_name))
+          return false;
+        if (!this.long_var_name.equals(that.long_var_name))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(get_grid_z_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      get_grid_z_args typedOther = (get_grid_z_args)other;
+
+      lastComparison = Boolean.valueOf(isSetLong_var_name()).compareTo(typedOther.isSetLong_var_name());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetLong_var_name()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.long_var_name, typedOther.long_var_name);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("get_grid_z_args(");
+      boolean first = true;
+
+      sb.append("long_var_name:");
+      if (this.long_var_name == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.long_var_name);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class get_grid_z_argsStandardSchemeFactory implements SchemeFactory {
+      public get_grid_z_argsStandardScheme getScheme() {
+        return new get_grid_z_argsStandardScheme();
+      }
+    }
+
+    private static class get_grid_z_argsStandardScheme extends StandardScheme<get_grid_z_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_z_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // LONG_VAR_NAME
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.long_var_name = iprot.readString();
+                struct.setLong_var_nameIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_z_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.long_var_name != null) {
+          oprot.writeFieldBegin(LONG_VAR_NAME_FIELD_DESC);
+          oprot.writeString(struct.long_var_name);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class get_grid_z_argsTupleSchemeFactory implements SchemeFactory {
+      public get_grid_z_argsTupleScheme getScheme() {
+        return new get_grid_z_argsTupleScheme();
+      }
+    }
+
+    private static class get_grid_z_argsTupleScheme extends TupleScheme<get_grid_z_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_z_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetLong_var_name()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetLong_var_name()) {
+          oprot.writeString(struct.long_var_name);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_z_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.long_var_name = iprot.readString();
+          struct.setLong_var_nameIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class get_grid_z_result implements org.apache.thrift.TBase<get_grid_z_result, get_grid_z_result._Fields>, java.io.Serializable, Cloneable   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_grid_z_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short)0);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new get_grid_z_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new get_grid_z_resultTupleSchemeFactory());
+    }
+
+    public List<Double> success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
+              new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE))));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_grid_z_result.class, metaDataMap);
+    }
+
+    public get_grid_z_result() {
+    }
+
+    public get_grid_z_result(
+      List<Double> success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public get_grid_z_result(get_grid_z_result other) {
+      if (other.isSetSuccess()) {
+        List<Double> __this__success = new ArrayList<Double>();
+        for (Double other_element : other.success) {
+          __this__success.add(other_element);
+        }
+        this.success = __this__success;
+      }
+    }
+
+    public get_grid_z_result deepCopy() {
+      return new get_grid_z_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    public int getSuccessSize() {
+      return (this.success == null) ? 0 : this.success.size();
+    }
+
+    public java.util.Iterator<Double> getSuccessIterator() {
+      return (this.success == null) ? null : this.success.iterator();
+    }
+
+    public void addToSuccess(double elem) {
+      if (this.success == null) {
+        this.success = new ArrayList<Double>();
+      }
+      this.success.add(elem);
+    }
+
+    public List<Double> getSuccess() {
+      return this.success;
+    }
+
+    public get_grid_z_result setSuccess(List<Double> success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((List<Double>)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof get_grid_z_result)
+        return this.equals((get_grid_z_result)that);
+      return false;
+    }
+
+    public boolean equals(get_grid_z_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(get_grid_z_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      get_grid_z_result typedOther = (get_grid_z_result)other;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, typedOther.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("get_grid_z_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class get_grid_z_resultStandardSchemeFactory implements SchemeFactory {
+      public get_grid_z_resultStandardScheme getScheme() {
+        return new get_grid_z_resultStandardScheme();
+      }
+    }
+
+    private static class get_grid_z_resultStandardScheme extends StandardScheme<get_grid_z_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, get_grid_z_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
+                {
+                  org.apache.thrift.protocol.TList _list112 = iprot.readListBegin();
+                  struct.success = new ArrayList<Double>(_list112.size);
+                  for (int _i113 = 0; _i113 < _list112.size; ++_i113)
+                  {
+                    double _elem114; // required
+                    _elem114 = iprot.readDouble();
+                    struct.success.add(_elem114);
+                  }
+                  iprot.readListEnd();
+                }
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, get_grid_z_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          {
+            oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, struct.success.size()));
+            for (double _iter115 : struct.success)
+            {
+              oprot.writeDouble(_iter115);
+            }
+            oprot.writeListEnd();
+          }
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class get_grid_z_resultTupleSchemeFactory implements SchemeFactory {
+      public get_grid_z_resultTupleScheme getScheme() {
+        return new get_grid_z_resultTupleScheme();
+      }
+    }
+
+    private static class get_grid_z_resultTupleScheme extends TupleScheme<get_grid_z_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, get_grid_z_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          {
+            oprot.writeI32(struct.success.size());
+            for (double _iter116 : struct.success)
+            {
+              oprot.writeDouble(_iter116);
+            }
+          }
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, get_grid_z_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          {
+            org.apache.thrift.protocol.TList _list117 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.DOUBLE, iprot.readI32());
+            struct.success = new ArrayList<Double>(_list117.size);
+            for (int _i118 = 0; _i118 < _list117.size; ++_i118)
+            {
+              double _elem119; // required
+              _elem119 = iprot.readDouble();
+              struct.success.add(_elem119);
             }
           }
           struct.setSuccessIsSet(true);

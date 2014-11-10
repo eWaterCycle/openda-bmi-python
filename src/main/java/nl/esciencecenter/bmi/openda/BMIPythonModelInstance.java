@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.esciencecenter.openda.bmi;
+package nl.esciencecenter.bmi.openda;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,8 +21,8 @@ import java.lang.ProcessBuilder.Redirect;
 import java.net.ServerSocket;
 import java.util.HashSet;
 
-import nl.esciencecenter.openda.bmi.thrift.BmiRasterService;
-import nl.esciencecenter.openda.bmi.thrift.ModelException;
+import nl.esciencecenter.bmi.thrift.BmiRasterService;
+import nl.esciencecenter.bmi.thrift.ModelException;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
