@@ -9,12 +9,17 @@ from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 
-from bmi.thrift.BmiRaster import Iface
-from bmi.thrift.BmiRaster import Processor
-from BMI_impl import Model
+from bmi.thrift.BmiRasterService import Iface
+from bmi.thrift.BmiRasterService import Processor
 from bmi.thrift.ttypes import ModelException, BmiGridType
+
 import sys
 import signal
+import numpy as np
+import __builtin__
+import logging
+
+logger = logging.getLogger(__name__)
 
 class RasterModelHandler(Iface):
 
@@ -45,7 +50,7 @@ class RasterModelHandler(Iface):
         """
         model.update_until(time)
     
-    def finalize(self):
+    def finalize_model(self):
         model.finalize()
         
         #raise TTransport.TTransportException("end of model, shut down server")
@@ -98,6 +103,14 @@ class RasterModelHandler(Iface):
          - long_var_name
         """
         return model.get_value(long_var_name).tostring()
+    
+    def get_value_at_indices(self, long_var_name, inds):
+        """
+        Parameters:
+         - long_var_name
+         - inds
+        """
+        return model.get_value_at_indices(long_var_name, inds).tostring()
 
     def get_grid_type(self, long_var_name):
         """
@@ -105,8 +118,6 @@ class RasterModelHandler(Iface):
          - long_var_name
         """
         result = model.get_grid_type(long_var_name)
-        
-        print result
         
         return result
     
@@ -132,21 +143,50 @@ class RasterModelHandler(Iface):
         return model.get_grid_origin(long_var_name)
     
     
+    def set_value(self, long_var_name, src):
+        """
+        Parameters:
+         - long_var_name
+         - src
+        """
+        vartype = model.get_var_type(long_var_name)
+        varshape = model.get_grid_shape(long_var_name)
+        
+        flatarray = np.fromstring(src, dtype=np.dtype(vartype))
+        
+        logger.info("flat array now shaped %s", str(flatarray.shape))
+
+        value = np.reshape(flatarray, varshape)
+        
+        model.set_value(long_var_name, value)
+    
+    def set_value_at_indices(self, long_var_name, inds, src):
+        """
+        Parameters:
+         - long_var_name
+         - inds
+         - src
+        """
+        model.set_value_at_indices(long_var_name, inds, np.fromstring(src, dtype=np.float64))
+    
 def handleSIGINT(sig, frame):
     #clean up state or what ever is necessary
     sys.exit(0)
-    
 
 if __name__ == '__main__':
     
-    print sys.argv
+    model_module_name = sys.argv[1]
+    model_class_name = sys.argv[2]
     
-    model = Model()
+    model_module = __import__(model_module_name)
+    model_class = getattr(model_module, model_class_name)
+    
+    model = model_class()
     
     handler = RasterModelHandler(model)
     processor = Processor(handler)
     
-    transport = TSocket.TServerSocket(port=sys.argv[1])
+    transport = TSocket.TServerSocket(port=sys.argv[3])
     
     tfactory = TTransport.TBufferedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolFactory()
@@ -155,8 +195,10 @@ if __name__ == '__main__':
     
     signal.signal(signal.SIGINT, handleSIGINT)
     
-    print server
+    logger.info(server)
+
+    logger.info("serving")
     
     server.serve()
     
-    print "done"
+    logger.info("done")

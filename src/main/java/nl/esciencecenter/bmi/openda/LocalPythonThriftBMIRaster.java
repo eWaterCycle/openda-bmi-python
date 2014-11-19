@@ -55,7 +55,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         return result;
     }
 
-    private static Process startModelProcess(int port, String pythonExecutable, File bridgeDir, File modelDir, String modelClass)
+    private static Process startModelProcess(int port, String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass)
             throws IOException {
         ProcessBuilder builder = new ProcessBuilder();
 
@@ -65,10 +65,14 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         File pythonCodeDir = new File(bridgeDir, "src/main/python");
         File pythonMainScript = new File(bridgeDir, "src/main/python/thrift_bmi_raster_server.py");
 
-        builder.environment().put("PYTHONPATH", generatedPythonCodeDir + ":" + pythonCodeDir);
+        String pythonPath = builder.environment().get("PYTHONPATH");
+        
+        builder.environment().put("PYTHONPATH", modelDir + ":" + pythonPath + ":" + generatedPythonCodeDir + ":" + pythonCodeDir);
 
         builder.command().add(pythonExecutable);
         builder.command().add(pythonMainScript.getAbsolutePath());
+        builder.command().add(modelModule);
+        builder.command().add(modelClass);
         builder.command().add(Integer.toString(port));
 
         builder.redirectError(Redirect.INHERIT);
@@ -93,7 +97,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
             try {
                 TTransport transport = new TSocket("localhost", port);
                 transport.open();
-                LOGGER.debug("obtained connection on " + i + "th attempt");
+                LOGGER.debug("obtained connection on the " + i + "th attempt");
                 return transport;
             } catch (TTransportException e) {
                 LOGGER.debug("could not connect to code (yet)", e);
@@ -109,11 +113,11 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         throw new IOException("Failed to connect to model");
     }
 
-    public static BMIRaster createModel(String pythonExecutable, File bridgeDir, File modelDir, String modelClass)
+    public static BMIRaster createModel(String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass)
             throws IOException {
         int port = getFreePort();
 
-        Process process = startModelProcess(port, pythonExecutable, bridgeDir, modelDir, modelClass);
+        Process process = startModelProcess(port, pythonExecutable, bridgeDir, modelDir, modelModule, modelClass);
 
         TTransport transport = connectToCode(port, process);
 

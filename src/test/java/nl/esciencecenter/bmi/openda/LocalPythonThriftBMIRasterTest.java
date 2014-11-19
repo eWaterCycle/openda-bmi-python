@@ -23,6 +23,8 @@ import java.io.IOException;
 import nl.esciencecenter.bmi.BMIModelException;
 import nl.esciencecenter.bmi.BMIRaster;
 import nl.esciencecenter.bmi.openda.LocalPythonThriftBMIRaster;
+import nl.esciencecenter.bmi.toymodels.IncrementModel;
+import nl.esciencecenter.bmi.toymodels.IncrementModelTest;
 
 import org.junit.Test;
 
@@ -30,23 +32,18 @@ import org.junit.Test;
  * @author Niels Drost
  *
  */
-public class LocalPythonThriftBMIRasterTest {
+public class LocalPythonThriftBMIRasterTest extends IncrementModelTest {
 
-    @Test
-    public void test() throws IOException, BMIModelException {
-        
+    protected BMIRaster newIncrementModel() throws IOException {
+
         String pythonExecutable = "/usr/bin/python";
         File bridgeDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
         File modelDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python/src/test/python/increment_model");
+        String modelModule = "increment_model";
         String modelClass = "IncrementModel";
-        
-        BMIRaster model = LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelClass);
-        
-        model.initialize("");
-        
-        //will also break thrift connection
-        model.finalize_model();
-        
+
+        return LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule, modelClass);
+
     }
 
 }

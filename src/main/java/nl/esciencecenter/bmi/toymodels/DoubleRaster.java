@@ -41,7 +41,7 @@ public class DoubleRaster {
     }
 
     public int getRank() {
-        return data.length;
+        return 2;
     }
     
     public int getWidth() {

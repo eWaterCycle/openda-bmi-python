@@ -16,7 +16,9 @@
 package nl.esciencecenter.bmi.openda;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,6 +181,7 @@ public abstract class ThriftBMIRaster implements BMIRaster {
 
     //get a 1d array of doubles from the buffer given
     private static double[] bufferToDoubleArray(ByteBuffer buffer) {
+        buffer.order(ByteOrder.nativeOrder());
         DoubleBuffer doubles = buffer.asDoubleBuffer();
 
         if (doubles.hasArray()) {
@@ -189,16 +192,22 @@ public abstract class ThriftBMIRaster implements BMIRaster {
             return resultArray;
         }
     }
+    
+    //get a 1d array of floats from the buffer given
+    private static float[] bufferToFloatArray(ByteBuffer buffer) {
+        buffer.order(ByteOrder.nativeOrder());
+        FloatBuffer floats = buffer.asFloatBuffer();
 
-    @Override
-    public double[] get_double(String long_var_name) throws BMIModelException {
-        try {
-            ByteBuffer result = client.get_value(long_var_name);
-            return bufferToDoubleArray(result);
-        } catch (TException e) {
-            throw new BMIModelException("failed to execute function on remote model", e);
+        if (floats.hasArray()) {
+            return floats.array();
+        } else {
+            float[] resultArray = new float[floats.capacity()];
+            floats.get(resultArray);
+            return resultArray;
         }
     }
+
+  
 
     private static List<Integer> intArrayToList(int[] array) {
         List<Integer> result = new ArrayList<Integer>();
@@ -229,6 +238,16 @@ public abstract class ThriftBMIRaster implements BMIRaster {
 
         return result;
     }
+    
+    @Override
+    public double[] get_double(String long_var_name) throws BMIModelException {
+        try {
+            ByteBuffer result = client.get_value(long_var_name);
+            return bufferToDoubleArray(result);
+        } catch (TException e) {
+            throw new BMIModelException("failed to execute function on remote model", e);
+        }
+    }
 
     @Override
     public double[] get_double_at_indices(String long_var_name, int[] indices) throws BMIModelException {
@@ -247,6 +266,7 @@ public abstract class ThriftBMIRaster implements BMIRaster {
         try {
             //add data to a buffer
             ByteBuffer buffer = ByteBuffer.allocate(src.length * 8);
+            buffer.order(ByteOrder.nativeOrder());
             buffer.asDoubleBuffer().put(src);
 
             client.set_value(long_var_name, buffer);
@@ -260,6 +280,7 @@ public abstract class ThriftBMIRaster implements BMIRaster {
         try {
             //add data to a buffer
             ByteBuffer buffer = ByteBuffer.allocate(src.length * 8);
+            buffer.order(ByteOrder.nativeOrder());
             buffer.asDoubleBuffer().put(src);
 
             List<Integer> indicesList = intArrayToList(indices);
@@ -269,6 +290,60 @@ public abstract class ThriftBMIRaster implements BMIRaster {
             throw new BMIModelException("failed to execute function on remote model", e);
         }
     }
+    
+    
+    @Override
+    public float[] get_float(String long_var_name) throws BMIModelException {
+        try {
+            ByteBuffer result = client.get_value(long_var_name);
+            return bufferToFloatArray(result);
+        } catch (TException e) {
+            throw new BMIModelException("failed to execute function on remote model", e);
+        }
+    }
+
+    @Override
+    public float[] get_float_at_indices(String long_var_name, int[] indices) throws BMIModelException {
+        try {
+            List<Integer> indicesList = intArrayToList(indices);
+
+            ByteBuffer result = client.get_value_at_indices(long_var_name, indicesList);
+            return bufferToFloatArray(result);
+        } catch (TException e) {
+            throw new BMIModelException("failed to execute function on remote model", e);
+        }
+    }
+
+    @Override
+    public void set_float(String long_var_name, float[] src) throws BMIModelException {
+        try {
+            //add data to a buffer
+            ByteBuffer buffer = ByteBuffer.allocate(src.length * 4);
+            buffer.order(ByteOrder.nativeOrder());
+            buffer.asFloatBuffer().put(src);
+
+            client.set_value(long_var_name, buffer);
+        } catch (TException e) {
+            throw new BMIModelException("failed to execute function on remote model", e);
+        }
+    }
+
+    @Override
+    public void set_float_at_indices(String long_var_name, int[] indices, float[] src) throws BMIModelException {
+        try {
+            //add data to a buffer
+            ByteBuffer buffer = ByteBuffer.allocate(src.length * 8);
+            buffer.order(ByteOrder.nativeOrder());
+            buffer.asFloatBuffer().put(src);
+
+            List<Integer> indicesList = intArrayToList(indices);
+
+            client.set_value_at_indices(long_var_name, indicesList, buffer);
+        } catch (TException e) {
+            throw new BMIModelException("failed to execute function on remote model", e);
+        }
+    }
+    
 
     @Override
     public BMIGridType get_grid_type(String long_var_name) throws BMIModelException {

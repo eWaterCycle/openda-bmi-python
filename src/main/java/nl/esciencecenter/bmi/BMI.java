@@ -61,6 +61,14 @@ public interface BMI {
     public void set_double(String long_var_name, double[] src) throws BMIModelException;
 
     public void set_double_at_indices(String long_var_name, int[] indices, double[] src) throws BMIModelException;
+    
+    public float[] get_float(String long_var_name) throws BMIModelException;
+
+    public float[] get_float_at_indices(String long_var_name, int[] indices) throws BMIModelException;
+
+    public void set_float(String long_var_name, float[] src) throws BMIModelException;
+
+    public void set_float_at_indices(String long_var_name, int[] indices, float[] src) throws BMIModelException;
 
     public BMIGridType get_grid_type(String long_var_name) throws BMIModelException;
 }

@@ -15,26 +15,33 @@
  */
 package nl.esciencecenter.bmi.toymodels;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import nl.esciencecenter.bmi.BMI;
 import nl.esciencecenter.bmi.BMIGridType;
 import nl.esciencecenter.bmi.BMIModelException;
 import nl.esciencecenter.bmi.BMIRaster;
-import nl.esciencecenter.bmi.toymodels.IncrementModel;
 
 import org.junit.Test;
 
 public class IncrementModelTest {
 
+    protected BMIRaster newIncrementModel() throws IOException {
+        return new IncrementModel();
+    }
+
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#IncrementModel()}.
+     * @throws Exception 
      */
     @Test
-    public void testIncrementModel() {
-        IncrementModel model = new IncrementModel();
+    public void testIncrementModel() throws Exception {
+        BMIRaster model = newIncrementModel();
 
         model.finalize_model();
     }
@@ -42,11 +49,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#initialize(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testInitialize() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testInitialize() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -56,11 +63,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#update()}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testUpdate() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testUpdate() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -82,8 +89,8 @@ public class IncrementModelTest {
     }
 
     @Test
-    public void testUpdate_AfterEndTime_Exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testUpdate_AfterEndTime_Exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -108,7 +115,7 @@ public class IncrementModelTest {
      */
     @Test
     public void testUpdate_until() throws Throwable {
-        BMI model = new IncrementModel();
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -130,8 +137,8 @@ public class IncrementModelTest {
     }
 
     @Test
-    public void testUpdate_until_AfterEndTime_Exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testUpdate_until_AfterEndTime_Exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -148,8 +155,8 @@ public class IncrementModelTest {
     }
 
     @Test
-    public void testUpdate_until_BeforeCurrentTime_Exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testUpdate_until_BeforeCurrentTime_Exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -168,11 +175,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#finalize_model()}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testFinalize_model() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testFinalize_model() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
         model.finalize_model();
@@ -189,12 +196,12 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_input_var_names()}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      *             in case of a failure
      */
     @Test
-    public void testGet_input_var_names() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_input_var_names() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -209,12 +216,12 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_output_var_names()}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      *             in case of a failure
      */
     @Test
-    public void testGet_output_var_names() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_output_var_names() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -230,11 +237,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_type(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_var_type() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_var_type() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -248,11 +255,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_type(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_var_type_invalidVariable_exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_var_type_invalidVariable_exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -273,11 +280,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_units(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_var_units() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_var_units() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -291,11 +298,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_units(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_var_units_invalidVariable_exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_var_units_invalidVariable_exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -316,11 +323,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_rank(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_var_rank() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_var_rank() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -334,11 +341,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_var_rank(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_var_rank_invalidVariable_exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_var_rank_invalidVariable_exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -359,11 +366,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_start_time()}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_start_time() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_start_time() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -378,11 +385,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_end_time()}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_end_time() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_end_time() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -396,11 +403,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_current_time()}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_current_time() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_current_time() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -417,11 +424,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#run_model()}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testRun_model() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testRun_model() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -437,11 +444,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_component_name()}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_component_name() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_component_name() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -456,11 +463,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_double(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_double() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_double() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -481,11 +488,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_double(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_double_invalidVariable_exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_double_invalidVariable_exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -504,14 +511,13 @@ public class IncrementModelTest {
     }
 
     /**
-     * Test method for
-     * {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_double_at_indices(java.lang.String, int[])}.
+     * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_double_at_indices(java.lang.String, int[])}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_double_at_indices() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_double_at_indices() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -534,11 +540,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_double(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_double_at_indices_invalidVariable_exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_double_at_indices_invalidVariable_exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -560,11 +566,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#set_double(java.lang.String, double[])}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testSet_double() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testSet_double() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -591,11 +597,11 @@ public class IncrementModelTest {
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#set_double(java.lang.String, double[])}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testSet_double_invalidVariable_exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testSet_double_invalidVariable_exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -618,11 +624,11 @@ public class IncrementModelTest {
      * Test method for
      * {@link nl.esciencecenter.bmi.toymodels.IncrementModel#set_double_at_indices(java.lang.String, int[], double[])}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testSet_double_at_indices() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testSet_double_at_indices() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -646,6 +652,8 @@ public class IncrementModelTest {
         //value should be "as normal" in most result indices (including the first)
         assertEquals(20.0, result[0], 0.0);
 
+        System.err.println(Arrays.toString(result));
+        
         //values should be different at set indices
         for (int i = 0; i < indices.length; i++) {
             assertEquals(expected, result[indices[i]], 0.0);
@@ -657,8 +665,8 @@ public class IncrementModelTest {
      * {@link nl.esciencecenter.bmi.toymodels.IncrementModel#set_double_at_indices(java.lang.String, int[], double[])}.
      */
     @Test
-    public void testSet_double_at_indices_invalidVariable_exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testSet_double_at_indices_invalidVariable_exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -680,29 +688,30 @@ public class IncrementModelTest {
 
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_type(java.lang.String)}.
-     * @throws BMIModelException 
+     * 
+     * @throws Exception
      */
     @Test
-    public void testGet_grid_type() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_grid_type() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
         BMIGridType result = model.get_grid_type("var1");
-        
+
         model.finalize_model();
-        
+
         assertEquals(BMIGridType.UNIFORM, result);
     }
 
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_type(java.lang.String)}.
      * 
-     * @throws BMIModelException
+     * @throws Exception
      */
     @Test
-    public void testGet_grid_type_invalidVariable_exception() throws BMIModelException {
-        BMI model = new IncrementModel();
+    public void testGet_grid_type_invalidVariable_exception() throws Exception {
+        BMI model = newIncrementModel();
 
         model.initialize("");
 
@@ -721,31 +730,33 @@ public class IncrementModelTest {
 
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_shape(java.lang.String)}.
-     * @throws BMIModelException 
+     * 
+     * @throws Exception
      */
     @Test
-    public void testGet_grid_shape() throws BMIModelException {
-        BMIRaster model = new IncrementModel();
+    public void testGet_grid_shape() throws Exception {
+        BMIRaster model = newIncrementModel();
 
         model.initialize("");
 
-        int[] expected = new int[] {10, 10};
-        
+        int[] expected = new int[] { 10, 10 };
+
         int[] result = model.get_grid_shape("var1");
-        
+
         model.finalize_model();
-        
+
         assertArrayEquals(expected, result);
 
     }
 
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_shape(java.lang.String)}.
-     * @throws BMIModelException 
+     * 
+     * @throws Exception
      */
     @Test
-    public void testGet_grid_shape_invalidVariable_exception() throws BMIModelException {
-        BMIRaster model = new IncrementModel();
+    public void testGet_grid_shape_invalidVariable_exception() throws Exception {
+        BMIRaster model = newIncrementModel();
 
         model.initialize("");
 
@@ -765,30 +776,32 @@ public class IncrementModelTest {
 
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_spacing(java.lang.String)}.
-     * @throws BMIModelException 
+     * 
+     * @throws Exception
      */
     @Test
-    public void testGet_grid_spacing() throws BMIModelException {
-        BMIRaster model = new IncrementModel();
+    public void testGet_grid_spacing() throws Exception {
+        BMIRaster model = newIncrementModel();
 
         model.initialize("");
 
-        double[] expected = new double[] {1.0, 1.0};
-        
+        double[] expected = new double[] { 1.0, 1.0 };
+
         double[] result = model.get_grid_spacing("var1");
-        
+
         model.finalize_model();
-        
+
         assertArrayEquals(expected, result, 0.0);
     }
 
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_spacing(java.lang.String)}.
-     * @throws BMIModelException 
+     * 
+     * @throws Exception
      */
     @Test
-    public void testGet_grid_spacing_invalidVariable_exception() throws BMIModelException {
-        BMIRaster model = new IncrementModel();
+    public void testGet_grid_spacing_invalidVariable_exception() throws Exception {
+        BMIRaster model = newIncrementModel();
 
         model.initialize("");
 
@@ -808,30 +821,32 @@ public class IncrementModelTest {
 
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_origin(java.lang.String)}.
-     * @throws BMIModelException 
+     * 
+     * @throws Exception
      */
     @Test
-    public void testGet_grid_origin() throws BMIModelException {
-        BMIRaster model = new IncrementModel();
+    public void testGet_grid_origin() throws Exception {
+        BMIRaster model = newIncrementModel();
 
         model.initialize("");
 
-        double[] expected = new double[] {0.0, 0.0};
-        
+        double[] expected = new double[] { 0.0, 0.0 };
+
         double[] result = model.get_grid_origin("var1");
-        
+
         model.finalize_model();
-        
+
         assertArrayEquals(expected, result, 0.0);
     }
 
     /**
      * Test method for {@link nl.esciencecenter.bmi.toymodels.IncrementModel#get_grid_origin(java.lang.String)}.
-     * @throws BMIModelException 
+     * 
+     * @throws Exception
      */
     @Test
-    public void testGet_grid_origin_invalidVariable_exception() throws BMIModelException {
-        BMIRaster model = new IncrementModel();
+    public void testGet_grid_origin_invalidVariable_exception() throws Exception {
+        BMIRaster model = newIncrementModel();
 
         model.initialize("");
 

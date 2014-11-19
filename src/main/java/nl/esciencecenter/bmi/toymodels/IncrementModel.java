@@ -205,4 +205,36 @@ public class IncrementModel implements BMIRaster {
         }
         return new double[] { 0.0, 0.0 };
     }
+
+    /* (non-Javadoc)
+     * @see nl.esciencecenter.bmi.BMI#get_float(java.lang.String)
+     */
+    @Override
+    public float[] get_float(String long_var_name) throws BMIModelException {
+        throw new BMIModelException("model does not use float values");
+    }
+
+    /* (non-Javadoc)
+     * @see nl.esciencecenter.bmi.BMI#get_float_at_indices(java.lang.String, int[])
+     */
+    @Override
+    public float[] get_float_at_indices(String long_var_name, int[] indices) throws BMIModelException {
+        throw new BMIModelException("model does not use float values");
+    }
+
+    /* (non-Javadoc)
+     * @see nl.esciencecenter.bmi.BMI#set_float(java.lang.String, float[])
+     */
+    @Override
+    public void set_float(String long_var_name, float[] src) throws BMIModelException {
+        throw new BMIModelException("model does not use float values");
+    }
+
+    /* (non-Javadoc)
+     * @see nl.esciencecenter.bmi.BMI#set_float_at_indices(java.lang.String, int[], float[])
+     */
+    @Override
+    public void set_float_at_indices(String long_var_name, int[] indices, float[] src) throws BMIModelException {
+        throw new BMIModelException("model does not use float values");
+    }
 }
