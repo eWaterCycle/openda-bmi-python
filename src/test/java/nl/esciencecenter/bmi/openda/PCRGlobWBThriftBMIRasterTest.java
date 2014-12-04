@@ -34,45 +34,114 @@ import org.junit.Test;
  *
  */
 public class PCRGlobWBThriftBMIRasterTest {
+    
+    private static final String iniFile = "/home/niels/workspace/PCR-GLOBWB/config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
+    private static int[] shape = new int[] {13, 17};
+    private static int dataSize = shape[0] * shape[1];
+    private static double[] gridSpacing = new double[] {0.5, 0.5};
+    
+    private static String variableName = "top_layer_soil_saturation";
+
+    private static BMIRaster createModel() throws IOException, BMIModelException {
+        String pythonExecutable = "/usr/bin/python";
+        File bridgeDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
+        File modelDir = new File("/home/niels/workspace/PCR-GLOBWB/model");
+        String modelModule = "bmiPcrglobwb";
+        String modelClass = "BmiPCRGlobWB";
+
+        BMIRaster model = LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule, modelClass);
+
+        model.initialize(iniFile);
+
+        return model;
+    }
 
     @Test
-    public void newIncrementModel() throws IOException, BMIModelException {
+    public void testNewModel() throws IOException, BMIModelException {
+
+        BMIRaster model = createModel();
+
+        model.finalize_model();
+
+    }
+
+    @Test
+    public void testGetVariable() throws IOException, BMIModelException {
+
+        BMIRaster model = createModel();
+
+        model.update();
+
+        float[] result = model.get_float("top_layer_soil_saturation");
+
+        model.finalize_model();
         
-//        String pythonExecutable = "/usr/bin/python";
-//        File bridgeDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
-//        File modelDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python/src/test/python/increment_model");
-//        String modelClass = "IncrementModel";
-//        
-//        return LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelClass);
-
-      String pythonExecutable = "/usr/bin/python";
-      File bridgeDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
-      File modelDir = new File("/home/niels/workspace/PCR-GLOBWB/model");
-      String modelModule = "bmiPcrglobwb";
-      String modelClass = "BmiPCRGlobWB";
-      
-      BMIRaster model =  LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule, modelClass);
+        assertEquals("result should have the correct amount of elements", dataSize, result.length);
+    }
     
-      model.initialize("/home/niels/workspace/PCR-GLOBWB/config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini");
+    @Test
+    public void testGetShape() throws IOException, BMIModelException {
 
-      //model.get_output_var_names();
-      
-      model.update();
-      
-      float[] result = model.get_float("top_layer_soil_saturation");
-      
-      System.err.println(Arrays.toString(result));
-      
-      model.set_float("top_layer_soil_saturation", result);
-      
-      model.update();
-      
-      model.finalize_model();
+        BMIRaster model = createModel();
+
+        model.update();
+
+        int[] result = model.get_grid_shape(variableName);
+
+        model.finalize_model();
+        
+        assertArrayEquals("result should have the correct shape", shape, result);
         
     }
     
+    @Test
+    public void testGetGridSpacing() throws IOException, BMIModelException {
 
-    
+        BMIRaster model = createModel();
+
+        model.update();
+
+        double[] result = model.get_grid_spacing(variableName);
+
+        model.finalize_model();
+        
+        assertArrayEquals("result should have the correct spacing", gridSpacing, result, 0.0);
+        
+    }
+
+    @Test
+    public void testSetVariable() throws IOException, BMIModelException {
+
+        BMIRaster model = createModel();
+
+        model.update();
+
+        int[] shape = model.get_grid_shape("top_layer_soil_saturation");
+
+        assertEquals("grid is expected to be two dimensional", 2, shape.length);
+
+        int dataSize = shape[0] * shape[1];
+
+        float[] data = new float[dataSize];
+
+        model.set_float("top_layer_soil_saturation", data);
+
+        model.finalize_model();
+    }
+
+    @Test
+    public void testRunModel() throws IOException, BMIModelException {
+
+        BMIRaster model = createModel();
+
+        while (model.get_current_time() < model.get_end_time()) {
+            model.update();
+        }
+
+        model.finalize_model();
+
+    }
+
 
 
 }
