@@ -17,7 +17,7 @@ package nl.esciencecenter.bmi.openda;
 
 import java.util.Arrays;
 
-import nl.esciencecenter.bmi.openda.BMIPythonModelInstance;
+import nl.esciencecenter.bmi.openda.BMIRasterModelInstance;
 
 import org.openda.interfaces.IModelInstance;
 import org.openda.interfaces.IPrevExchangeItem.Role;
@@ -28,7 +28,7 @@ public class BMITest {
         //TTransport transport = new TSocket("localhost", 9090);
         //transport.open();
         
-        IModelInstance instance = new BMIPythonModelInstance();
+        IModelInstance instance = new BMIRasterModelInstance();
         
         System.err.println(Arrays.toString(instance.getExchangeItemIDs()));
         

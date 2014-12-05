@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BMIPythonModelInstance.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BMIRasterModelInstance.class);
 
     private static final int MAX_CONNECT_ATTEMPTS = 20;
     private static final long CONNECT_TIMEOUT = 100; //ms

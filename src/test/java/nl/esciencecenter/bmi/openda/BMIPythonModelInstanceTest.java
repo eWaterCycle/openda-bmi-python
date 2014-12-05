@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-import nl.esciencecenter.bmi.openda.BMIPythonModelInstance;
+import nl.esciencecenter.bmi.openda.BMIRasterModelInstance;
 import nl.esciencecenter.bmi.thrift.ModelException;
 
 import org.apache.thrift.TException;
@@ -29,12 +29,12 @@ public class BMIPythonModelInstanceTest {
 
     @Test
     public void testBMIPythonModelInstance() throws IOException, ModelException, TException {
-        new BMIPythonModelInstance();
+        new BMIRasterModelInstance();
     }
 
     @Test
     public void testGetExchangeItemIDs() throws IOException, ModelException, TException {
-        BMIPythonModelInstance instance = new BMIPythonModelInstance();
+        BMIRasterModelInstance instance = new BMIRasterModelInstance();
         
         String[] ids = instance.getExchangeItemIDs();
         
