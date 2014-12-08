@@ -42,6 +42,7 @@ public class BMIPythonModelFactory implements IModelFactory {
 
     @Override
     public void initialize(File configRootDir, String[] arguments) {
+        
         //get arguments such as python location, etc
         // TODO Auto-generated method stub
         //        String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass;

@@ -23,12 +23,9 @@ package nl.esciencecenter.bmi.openda;
 import nl.esciencecenter.bmi.BMIModelException;
 import nl.esciencecenter.bmi.BMIRaster;
 
-import org.openda.blackbox.config.BBUtils;
 import org.openda.exchange.ArrayGeometryInfo;
-import org.openda.exchange.NetcdfGridTimeSeriesExchangeItem;
 import org.openda.exchange.QuantityInfo;
 import org.openda.exchange.TimeInfo;
-import org.openda.exchange.timeseries.TimeUtils;
 import org.openda.interfaces.IArray;
 import org.openda.interfaces.IExchangeItem;
 import org.openda.interfaces.IGeometryInfo;
@@ -37,23 +34,22 @@ import org.openda.interfaces.IQuantityInfo;
 import org.openda.interfaces.ITime;
 import org.openda.interfaces.ITimeInfo;
 import org.openda.interfaces.IVector;
-import org.openda.utils.Time;
+import org.openda.utils.Array;
 import org.openda.utils.Vector;
 
 /**
- * Exchange item representing a 2D map with values for the wflow model.
+ * Exchange item representing a 2D map with values for BMI models
  *
  * @author Arno Kockx
+ * @author Niels Drost
  */
 public class BMIRasterStateExchangeItem implements IExchangeItem {
+    private static final long serialVersionUID = 1L;
     private final String variableName;
     private final IPrevExchangeItem.Role role;
-    private final ITime timeHorizon;
     private final BMIRaster model;
     private final IQuantityInfo quantityInfo;
     private final IGeometryInfo geometryInfo;
-
-    private final int activeGridCellCount;
 
     /**
      * @param variableName
@@ -72,42 +68,41 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
 
         this.geometryInfo = createGeometryInfo();
 
-        this.timeHorizon = timeHorizon;
         this.model = model;
-
     }
 
     /**
      * @return
      */
     private IGeometryInfo createGeometryInfo() {
-        double upperLeftCenterX = this.model.get_grid_origin(variableName)[0];
-        double upperLeftCenterY = this.model.get_grid_origin(variableName)[1];
-        
-        double cellWidth = this.model.get_grid_spacing(variableName)[0];
-        double cellHeight = this.model.get_grid_spacing(variableName)[1];
-        int rowCount = this.adapter.getRowCount();
-        int columnCount = this.adapter.getColumnCount();
-        int[] activeGridCellMask = BBUtils.toIntArray(this.adapter.getMapAsList(WFLOW_MASK_VARIABLE_NAME));
+        //lower-left corner
+        try {
+            double[] origin = this.model.get_grid_origin(variableName);
+            double[] spacing = this.model.get_grid_spacing(variableName);
+            int[] shape = this.model.get_grid_shape(variableName);
 
-        //this code assumes that grid values in wflow start at upperLeft corner, then contain the first row from left to right,
-        //then the second row from left to right, etc. Also see org.openda.model_wflow.WflowModelFactory.createInputDataObjects.
-        double[] xValues = new double[columnCount];
-        for (int n = 0; n < xValues.length; n++) {
-            xValues[n] = upperLeftCenterX + n * cellWidth;
+            //data in grid lower-to-higher latitudes (south to north)
+            double[] latitudes = new double[shape[0]];
+            for (int n = 0; n < latitudes.length; n++) {
+                //calculate latitude at center of each cell
+                latitudes[n] = origin[0] + (spacing[0] / 2) + n * spacing[0];
+            }
+            IArray latitudeArray = new Array(latitudes);
+
+            double[] longitudes = new double[shape[1]];
+            for (int n = 0; n < longitudes.length; n++) {
+                longitudes[n] = origin[1] + (spacing[1] / 2) + n * spacing[1];
+            }
+            IArray longitudeArray = new Array(longitudes);
+            
+            IQuantityInfo latitudeQuantityInfo = new QuantityInfo("y coordinate according to model coordinate system", "meter");
+            IQuantityInfo longitudeQuantityInfo = new QuantityInfo("x coordinate according to model coordinate system", "meter");
+            return new ArrayGeometryInfo(latitudeArray, null, latitudeQuantityInfo, longitudeArray, null, longitudeQuantityInfo,
+                    null, null, null, null);
+        } catch (BMIModelException e) {
+            throw new RuntimeException(e);
         }
-        double[] yValues = new double[rowCount];
-        for (int n = 0; n < yValues.length; n++) {
-            yValues[n] = upperLeftCenterY - n * cellHeight;
-        }
-        
-        //here for the purpose of writing to Netcdf the geometryInfo needs all grid cell coordinates and activeGridCellMask.
-        IArray latitudeArray = new Array(yValues);
-        IArray longitudeArray = new Array(xValues);
-        IQuantityInfo latitudeQuantityInfo = new QuantityInfo("y coordinate according to model coordinate system", "meter");
-        IQuantityInfo longitudeQuantityInfo = new QuantityInfo("x coordinate according to model coordinate system", "meter");
-        return new ArrayGeometryInfo(latitudeArray, null, latitudeQuantityInfo, longitudeArray, null, longitudeQuantityInfo,
-                null, null, null, activeGridCellMask);
+
     }
 
     public String getId() {
@@ -155,8 +150,8 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
     }
 
     /**
-     * Returns only the current values, since the model only stores the current values in memory. The values of inactive
-     * grid cells are converted to Double.NaN, because the algorithms cannot cope with inactive grid cells.
+     * Returns only the current values, since the model only stores the current values in memory. The values of inactive grid
+     * cells are converted to Double.NaN, because the algorithms cannot cope with inactive grid cells.
      */
     public double[] getValuesAsDoubles() {
         try {
@@ -167,8 +162,8 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
     }
 
     /**
-     * Only changes the current values, since the model only stores the current values in memory. Only changes the values of
-     * the active grid cells.
+     * Only changes the current values, since the model only stores the current values in memory. Only changes the values of the
+     * active grid cells.
      */
     public void axpyOnValues(double alpha, double[] axpyValues) {
         double[] allValues = getValuesAsDoubles();

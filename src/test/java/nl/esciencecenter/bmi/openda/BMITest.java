@@ -25,20 +25,20 @@ import org.openda.interfaces.IPrevExchangeItem.Role;
 public class BMITest {
 
     public static void main(String[] args) throws Exception {
-        //TTransport transport = new TSocket("localhost", 9090);
-        //transport.open();
-        
-        IModelInstance instance = new BMIRasterModelInstance();
-        
-        System.err.println(Arrays.toString(instance.getExchangeItemIDs()));
-        
-        System.err.println(Arrays.toString(instance.getExchangeItemIDs(Role.InOut)));
-        
-        System.err.println(Arrays.toString(instance.getExchangeItemIDs(Role.Input)));
-        
-        System.err.println(Arrays.toString(instance.getExchangeItemIDs(Role.Output)));
-        
-        instance.finish();
+//        //TTransport transport = new TSocket("localhost", 9090);
+//        //transport.open();
+//        
+//        IModelInstance instance = new BMIRasterModelInstance();
+//        
+//        System.err.println(Arrays.toString(instance.getExchangeItemIDs()));
+//        
+//        System.err.println(Arrays.toString(instance.getExchangeItemIDs(Role.InOut)));
+//        
+//        System.err.println(Arrays.toString(instance.getExchangeItemIDs(Role.Input)));
+//        
+//        System.err.println(Arrays.toString(instance.getExchangeItemIDs(Role.Output)));
+//        
+//        instance.finish();
 //        
 //        System.err.println(client.get_input_var_names ());
 //        System.err.println(client.get_output_var_names ());

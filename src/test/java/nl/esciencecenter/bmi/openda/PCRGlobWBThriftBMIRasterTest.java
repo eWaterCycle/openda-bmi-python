@@ -72,7 +72,7 @@ public class PCRGlobWBThriftBMIRasterTest {
 
         model.update();
 
-        float[] result = model.get_float("top_layer_soil_saturation");
+        double[] result = model.get_double("top_layer_soil_saturation");
 
         model.finalize_model();
         
@@ -122,9 +122,9 @@ public class PCRGlobWBThriftBMIRasterTest {
 
         int dataSize = shape[0] * shape[1];
 
-        float[] data = new float[dataSize];
+        double[] data = new double[dataSize];
 
-        model.set_float("top_layer_soil_saturation", data);
+        model.set_double("top_layer_soil_saturation", data);
 
         model.finalize_model();
     }
