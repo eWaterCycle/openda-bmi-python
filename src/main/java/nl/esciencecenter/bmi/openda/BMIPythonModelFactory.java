@@ -62,7 +62,7 @@ public class BMIPythonModelFactory implements IModelFactory {
         modelModule = "bmiPcrglobwb";
         modelClass = "BmiPCRGlobWB";
         
-        configFile = "/home/niels/workspace/PCR-GLOBWB/config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
+        configFile = "/home/niels/workspace/PCR-GLOBWB/config/setup_30min_niels_laptop.ini";
     }
 
     @Override

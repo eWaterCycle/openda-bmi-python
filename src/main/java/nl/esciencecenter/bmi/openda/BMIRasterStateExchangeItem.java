@@ -62,11 +62,12 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
             throws BMIModelException {
         this.variableName = variableName;
         this.role = role;
+        this.model = model;
+
         this.quantityInfo = new QuantityInfo(variableName, model.get_var_units(variableName));
 
         this.geometryInfo = createGeometryInfo();
 
-        this.model = model;
     }
 
     /**
@@ -75,6 +76,10 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
     private IGeometryInfo createGeometryInfo() {
         //lower-left corner
         try {
+            if (model == null) {
+                throw new NullPointerException("model is null!");
+            }
+            
             double[] origin = this.model.get_grid_origin(variableName);
             double[] spacing = this.model.get_grid_spacing(variableName);
             int[] shape = this.model.get_grid_shape(variableName);
@@ -93,9 +98,12 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
             }
             IArray longitudeArray = new Array(longitudes);
             
+            int[] latitudeValueIndices = new int[] {0};
+            int[] longitudeValueIndices = new int[] {1};
+            
             IQuantityInfo latitudeQuantityInfo = new QuantityInfo("y coordinate according to model coordinate system", "meter");
             IQuantityInfo longitudeQuantityInfo = new QuantityInfo("x coordinate according to model coordinate system", "meter");
-            return new ArrayGeometryInfo(latitudeArray, null, latitudeQuantityInfo, longitudeArray, null, longitudeQuantityInfo,
+            return new ArrayGeometryInfo(latitudeArray, latitudeValueIndices, latitudeQuantityInfo, longitudeArray, longitudeValueIndices, longitudeQuantityInfo,
                     null, null, null, null);
         } catch (BMIModelException e) {
             throw new RuntimeException(e);

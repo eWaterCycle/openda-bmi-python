@@ -79,7 +79,7 @@ public class BMIRasterModelInstance extends Instance implements IModelInstance, 
         for (String var : model.get_output_var_names()) {
             outputVars.add(var);
         }
-        
+
         //then put duplicates in inout variables.
         //Note: Loop over copy of set to prevent iterator exception 
         for (String var : inputVars.toArray(new String[0])) {
@@ -89,14 +89,14 @@ public class BMIRasterModelInstance extends Instance implements IModelInstance, 
                 inoutVars.add(var);
             }
         }
-        
+
         Map<String, BMIRasterStateExchangeItem> result = new HashMap<String, BMIRasterStateExchangeItem>();
 
         for (String variable : inputVars) {
             BMIRasterStateExchangeItem item = new BMIRasterStateExchangeItem(variable, IPrevExchangeItem.Role.Input, model);
             result.put(variable, item);
         }
-        
+
         for (String variable : outputVars) {
             BMIRasterStateExchangeItem item = new BMIRasterStateExchangeItem(variable, IPrevExchangeItem.Role.Output, model);
             result.put(variable, item);
@@ -227,69 +227,85 @@ public class BMIRasterModelInstance extends Instance implements IModelInstance, 
     public File getModelRunDir() {
         return this.modelRunDir;
     }
-    
+
     /**
-     * Get the observed values of the Model.
-     * This returns what the observations would look like, if reality would be equal to the current model state.
+     * Get the observed values of the Model. This returns what the observations would look like, if reality would be equal to the
+     * current model state.
      *
-     * In other words this method returns a grid with values that would be observed by the satellite
-     * if reality would be equal to the current model state. This is needed, because, to compare the
-     * satellite observations with the model output, they should be defined on the same grid. The grid
-     * of the satellite has a different position, size and orientation than the grid of the model state.
-     * The values of the model state grid are interpolated to the observations grid using bilinear interpolation.
-     * The interpolation has to be done for each observation separately, since for each observation
-     * the satellite grid can be different, as the satellite moves along its orbit.
+     * In other words this method returns a grid with values that would be observed by the satellite if reality would be equal to
+     * the current model state. This is needed, because, to compare the satellite observations with the model output, they should
+     * be defined on the same grid. The grid of the satellite has a different position, size and orientation than the grid of the
+     * model state. The values of the model state grid are interpolated to the observations grid using bilinear interpolation. The
+     * interpolation has to be done for each observation separately, since for each observation the satellite grid can be
+     * different, as the satellite moves along its orbit.
      *
-     * @param observationDescriptions observation description
+     * @param observationDescriptions
+     *            observation description
      * @return Model prediction interpolated to each observation (location).
      */
     @Override
     public IVector getObservedValues(IObservationDescriptions observationDescriptions) {
-            //here only use the model exchangeItem that corresponds to the observed values, e.g. "SoilMoisture".
-            IExchangeItem modelExchangeItem = getDataObjectExchangeItem("SoilMoisture");
-            IGeometryInfo modelGeometryInfo = modelExchangeItem.getGeometryInfo();
-            double[] modelValues = modelExchangeItem.getValuesAsDoubles();
+        if (exchangeItems.size() > 1) {
+            throw new RuntimeException("Can only handle a single exchange item");
+        }
 
-            IExchangeItem observationsExchangeItem = getSingleObservationsExchangeItem(observationDescriptions);
-            IGeometryInfo observationsGeometryInfo = observationsExchangeItem.getGeometryInfo();
+        //here only use the model exchangeItem that corresponds to the observed values, e.g. "SoilMoisture".
+        IExchangeItem modelExchangeItem = exchangeItems.values().iterator().next();
+        IGeometryInfo modelGeometryInfo = modelExchangeItem.getGeometryInfo();
+        double[] modelValues = modelExchangeItem.getValuesAsDoubles();
 
-            return GeometryUtils.getObservedValuesBilinearInterpolation(modelGeometryInfo, observationsGeometryInfo, modelValues);
+//        IExchangeItem observationsExchangeItem = getSingleObservationsExchangeItem(observationDescriptions);
+//        IGeometryInfo observationsGeometryInfo = observationsExchangeItem.getGeometryInfo();
+
+        //TODO if multiple grids for current time, e.g. soilMoisture and evaporation, then the coordinates of these grids are present in sequence in observationDescriptions,
+        //in that case need to figure out which of the observations correspond to the given stateExchangeItemID here.
+        IVector observationXCoordinates = observationDescriptions.getValueProperties("x");
+        IVector observationYCoordinates = observationDescriptions.getValueProperties("y");
+
+        return GeometryUtils.getObservedValuesBilinearInterpolation(modelGeometryInfo, observationXCoordinates, observationYCoordinates, modelValues);
     }
 
     private static IExchangeItem getSingleObservationsExchangeItem(IObservationDescriptions observationDescriptions) {
-            //get exchangeItem.
-            List<IPrevExchangeItem> exchangeItems = observationDescriptions.getExchangeItems();
-            if (exchangeItems == null || exchangeItems.size() != 1) {
-                    throw new IllegalArgumentException("Given observationDescriptions contains none or multiple exchangeItems, but should contain only one.");
-            }
-            IPrevExchangeItem previousExchangeItem = exchangeItems.get(0);
-            if (!(previousExchangeItem instanceof IExchangeItem)) {
-                    throw new IllegalArgumentException("Given observationDescriptions should contain an exchange item that is a subclass of " + IExchangeItem.class.getName());
-            }
-            return (IExchangeItem) previousExchangeItem;
+        //get exchangeItem.
+        List<IPrevExchangeItem> exchangeItems = observationDescriptions.getExchangeItems();
+        if (exchangeItems == null || exchangeItems.size() != 1) {
+            throw new IllegalArgumentException(
+                    "Given observationDescriptions contains none or multiple exchangeItems, but should contain only one.");
+        }
+        IPrevExchangeItem previousExchangeItem = exchangeItems.get(0);
+//        if (!(previousExchangeItem instanceof IExchangeItem)) {
+//            throw new IllegalArgumentException(
+//                    "Given observationDescriptions should contain an exchange item that is a subclass of "
+//                            + IExchangeItem.class.getName());
+//        }
+        return (IExchangeItem) previousExchangeItem;
     }
 
     /**
      * Returns the localization weights for each observation location.
      *
-     * @param stateExchangeItemID id of the state vector for which the localization weights should be returned.
-     * @param observationDescriptions observation description
-     * @param distance characteristic distance for Cohn's formula
-     * @return weight vector for each observation location.
-     *         The size of the returned array must equal the number of observation locations in the given observationDescriptions.
-     *         The size of each vector in the returned array must equal the size of the state vector with the given stateExchangeItemID.
+     * @param stateExchangeItemID
+     *            id of the state vector for which the localization weights should be returned.
+     * @param observationDescriptions
+     *            observation description
+     * @param distance
+     *            characteristic distance for Cohn's formula
+     * @return weight vector for each observation location. The size of the returned array must equal the number of observation
+     *         locations in the given observationDescriptions. The size of each vector in the returned array must equal the size
+     *         of the state vector with the given stateExchangeItemID.
      */
-    public IVector[] getObservedLocalization(String stateExchangeItemID, IObservationDescriptions observationDescriptions, double distance) {
-            //TODO if multiple grids for current time, e.g. soilMoisture and evaporation, then the coordinates of these grids are present in sequence in observationDescriptions,
-            //in that case need to figure out which of the observations correspond to the given stateExchangeItemID here.
-            IVector observationXCoordinates = observationDescriptions.getValueProperties("x");
-            IVector observationYCoordinates = observationDescriptions.getValueProperties("y");
+    public IVector[] getObservedLocalization(String stateExchangeItemID, IObservationDescriptions observationDescriptions,
+            double distance) {
+        //TODO if multiple grids for current time, e.g. soilMoisture and evaporation, then the coordinates of these grids are present in sequence in observationDescriptions,
+        //in that case need to figure out which of the observations correspond to the given stateExchangeItemID here.
+        IVector observationXCoordinates = observationDescriptions.getValueProperties("x");
+        IVector observationYCoordinates = observationDescriptions.getValueProperties("y");
 
-            IExchangeItem stateExchangeItem = getDataObjectExchangeItem(stateExchangeItemID);
-            IGeometryInfo stateGeometryInfo = stateExchangeItem.getGeometryInfo();
+        IExchangeItem stateExchangeItem = getDataObjectExchangeItem(stateExchangeItemID);
+        IGeometryInfo stateGeometryInfo = stateExchangeItem.getGeometryInfo();
 
-            return GeometryUtils.getLocalizationWeights(observationXCoordinates, observationYCoordinates, stateGeometryInfo, distance);
+        return GeometryUtils
+                .getLocalizationWeights(observationXCoordinates, observationYCoordinates, stateGeometryInfo, distance);
     }
-
 
 }
