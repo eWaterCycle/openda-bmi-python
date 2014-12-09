@@ -29,11 +29,24 @@ public class BMIPythonModelFactory implements IModelFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BMIPythonModelFactory.class);
     
+    private static int nextModelID = 0;
+    
+    private static int getNextID() {
+        nextModelID += 1;
+        
+        return nextModelID;
+    }
+    
     private String pythonExecutable;
     private File bridgeDir;
     private File modelDir;
     private String modelModule;
     private String modelClass;
+    
+    
+    private File modelRunRootDir;
+    
+    private String configFile;
 
     //called by OpenDA
     public BMIPythonModelFactory() {
@@ -43,27 +56,36 @@ public class BMIPythonModelFactory implements IModelFactory {
     @Override
     public void initialize(File configRootDir, String[] arguments) {
         
-        //get arguments such as python location, etc
-        // TODO Auto-generated method stub
-        //        String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass;
+        pythonExecutable = "/usr/bin/python";
+        bridgeDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
+        modelDir = new File("/home/niels/workspace/PCR-GLOBWB/model");
+        modelModule = "bmiPcrglobwb";
+        modelClass = "BmiPCRGlobWB";
+        
+        configFile = "/home/niels/workspace/PCR-GLOBWB/config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
     }
 
     @Override
     public IModelInstance getInstance(String[] arguments, OutputLevel outputLevel) {
         try {
-            int instanceID = 0;
+            int instanceID = getNextID();
             
             BMIRaster model = LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule,
-                    modelClass);
 
-            File modelRunDir = null;
+                   modelClass);
 
-            return new BMIRasterModelInstance(model, modelRunDir);
+            String workDir = String.format("work%2d", instanceID);
+            
+            File modelWorkDir = new File(modelRunRootDir, workDir);
+            
+            return new BMIRasterModelInstance(model, modelWorkDir, configFile);
         } catch (Exception e) {
             LOGGER.error("failed to create instance", e);
             return null;
         }
     }
+
+  
 
     @Override
     public void finish() {

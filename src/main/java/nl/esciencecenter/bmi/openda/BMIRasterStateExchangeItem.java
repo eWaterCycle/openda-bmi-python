@@ -53,17 +53,15 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
 
     /**
      * @param variableName
-     *            the name of the variable as used by the wflow model.
+     *            the name of the variable as used by a BMI model
      * @param role
-     * @param timeHorizon
      * @param adapter
      * @throws BMIModelException
      */
-    public BMIRasterStateExchangeItem(String variableName, IPrevExchangeItem.Role role, ITime timeHorizon, BMIRaster model)
+    public BMIRasterStateExchangeItem(String variableName, IPrevExchangeItem.Role role, BMIRaster model)
             throws BMIModelException {
         this.variableName = variableName;
         this.role = role;
-
         this.quantityInfo = new QuantityInfo(variableName, model.get_var_units(variableName));
 
         this.geometryInfo = createGeometryInfo();
@@ -122,7 +120,7 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
     }
 
     public double[] getTimes() {
-        //return current time, since the wflow model only stores the current values in memory.
+        //return current time, since BMI models only store the current values in memory.
         try {
             return new double[] { model.get_current_time() };
         } catch (BMIModelException e) {
