@@ -149,8 +149,12 @@ class RasterModelHandler(Iface):
          - long_var_name
          - src
         """
+        logger.info("received %s bytes", len(src))
+        
         vartype = model.get_var_type(long_var_name)
         varshape = model.get_grid_shape(long_var_name)
+        
+        logger.info("var type, shape %s, %s", str(vartype), str(varshape))
         
         flatarray = np.fromstring(src, dtype=np.dtype(vartype))
         

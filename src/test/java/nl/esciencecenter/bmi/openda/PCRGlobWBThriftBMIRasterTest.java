@@ -48,8 +48,9 @@ public class PCRGlobWBThriftBMIRasterTest {
         File modelDir = new File("/home/niels/workspace/PCR-GLOBWB/model");
         String modelModule = "bmiPcrglobwb";
         String modelClass = "BmiPCRGlobWB";
+        File cwd = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
 
-        BMIRaster model = LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule, modelClass);
+        BMIRaster model = LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule, modelClass, cwd);
 
         model.initialize(iniFile);
 

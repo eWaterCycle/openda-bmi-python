@@ -62,21 +62,26 @@ public class BMIPythonModelFactory implements IModelFactory {
         modelModule = "bmiPcrglobwb";
         modelClass = "BmiPCRGlobWB";
         
-        configFile = "/home/niels/workspace/PCR-GLOBWB/config/setup_30min_niels_laptop.ini";
+        configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_30min_niels_laptop.ini";
+        
+        modelRunRootDir = new File("/home/niels/Data/operational-output");
     }
 
     @Override
     public IModelInstance getInstance(String[] arguments, OutputLevel outputLevel) {
         try {
+            //ID of this member
             int instanceID = getNextID();
+            
+            //create a output directory for this member
+            String workDir = String.format("work%02d", instanceID);
+            File modelWorkDir = new File(modelRunRootDir, workDir);
+            modelWorkDir.mkdirs();
             
             BMIRaster model = LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule,
 
-                   modelClass);
+                   modelClass, modelWorkDir);
 
-            String workDir = String.format("work%2d", instanceID);
-            
-            File modelWorkDir = new File(modelRunRootDir, workDir);
             
             return new BMIRasterModelInstance(model, modelWorkDir, configFile);
         } catch (Exception e) {

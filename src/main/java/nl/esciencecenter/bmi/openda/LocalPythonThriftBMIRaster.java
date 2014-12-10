@@ -55,11 +55,12 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         return result;
     }
 
-    private static Process startModelProcess(int port, String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass)
+    private static Process startModelProcess(int port, String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass, File runDir)
             throws IOException {
         ProcessBuilder builder = new ProcessBuilder();
 
-        builder.directory(modelDir);
+        LOGGER.info("running process with cwd " + runDir);
+        builder.directory(runDir);
 
         File generatedPythonCodeDir = new File(bridgeDir, "generated/main/python");
         File pythonCodeDir = new File(bridgeDir, "src/main/python");
@@ -113,11 +114,11 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         throw new IOException("Failed to connect to model");
     }
 
-    public static BMIRaster createModel(String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass)
+    public static BMIRaster createModel(String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass, File runDir)
             throws IOException {
         int port = getFreePort();
 
-        Process process = startModelProcess(port, pythonExecutable, bridgeDir, modelDir, modelModule, modelClass);
+        Process process = startModelProcess(port, pythonExecutable, bridgeDir, modelDir, modelModule, modelClass, runDir);
 
         TTransport transport = connectToCode(port, process);
 

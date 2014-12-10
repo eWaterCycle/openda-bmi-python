@@ -31,11 +31,12 @@ import org.openda.interfaces.IExchangeItem;
 import org.openda.interfaces.IGeometryInfo;
 import org.openda.interfaces.IPrevExchangeItem;
 import org.openda.interfaces.IQuantityInfo;
-import org.openda.interfaces.ITime;
 import org.openda.interfaces.ITimeInfo;
 import org.openda.interfaces.IVector;
 import org.openda.utils.Array;
 import org.openda.utils.Vector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Exchange item representing a 2D map with values for BMI models
@@ -44,6 +45,9 @@ import org.openda.utils.Vector;
  * @author Niels Drost
  */
 public class BMIRasterStateExchangeItem implements IExchangeItem {
+    
+    private static Logger LOGGER = LoggerFactory.getLogger(BMIRasterStateExchangeItem.class);
+    
     private static final long serialVersionUID = 1L;
     private final String variableName;
     private final IPrevExchangeItem.Role role;
@@ -208,6 +212,8 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
      * grid cells anyway.
      */
     public void setValuesAsDoubles(double[] values) {
+        LOGGER.info("Setting " + values.length + " values in variable " + variableName);
+        
         try {
             model.set_double(variableName, values);
         } catch (BMIModelException e) {

@@ -41,8 +41,10 @@ public class LocalPythonThriftBMIRasterTest extends IncrementModelTest {
         File modelDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python/src/test/python/increment_model");
         String modelModule = "increment_model";
         String modelClass = "IncrementModel";
+        
+        File cwd = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
 
-        return LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule, modelClass);
+        return LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule, modelClass, cwd);
 
     }
 
