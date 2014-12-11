@@ -69,10 +69,14 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         File pythonCodeDir = new File(bridgeDir, "src/main/python");
         File pythonMainScript = new File(bridgeDir, "src/main/python/thrift_bmi_raster_server.py");
 
-        String pythonPath = builder.environment().get("PYTHONPATH");
-        
-        builder.environment().put("PYTHONPATH", modelDir + ":" + pythonPath + ":" + generatedPythonCodeDir + ":" + pythonCodeDir);
+        String currentPythonPath = builder.environment().get("PYTHONPATH");
 
+        String newPythonPath = modelDir + ":" + currentPythonPath + ":" + generatedPythonCodeDir + ":" + pythonCodeDir;
+        
+        builder.environment().put("PYTHONPATH", newPythonPath);
+
+        LOGGER.info("Running with PYTHONPATH: " + newPythonPath);
+        
         builder.command().add(pythonExecutable);
         builder.command().add(pythonMainScript.getAbsolutePath());
         builder.command().add(modelModule);
