@@ -269,7 +269,9 @@ public class BMIRasterModelInstance extends Instance implements IModelInstance, 
                 double value = result.getValue(i);
                 
                 if (Double.isNaN(value)) {
-                    throw new RuntimeException("Model value at Observation is Nan!");
+                    //throw new RuntimeException("Model value at Observation is Nan!");
+                    LOGGER.error("Model value at Observation " + i + " is Nan!");
+                    result.setValue(i, 0.5);
                 }
             }
             

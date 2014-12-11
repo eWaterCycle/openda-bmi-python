@@ -58,14 +58,14 @@ public class BMIPythonModelFactory implements IModelFactory {
     @Override
     public void initialize(File configRootDir, String[] arguments) {
         
-        pythonExecutable = "/usr/bin/python";
+        pythonExecutable = "/home/niels/bin/python";
         bridgeDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
         modelDir = new File("/home/niels/workspace/PCR-GLOBWB/model");
         modelModule = "bmiPcrglobwb";
         modelClass = "BmiPCRGlobWB";
         
-        //configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_30min_niels_laptop.ini";
-        configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
+        configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_30min_niels_laptop.ini";
+        //configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
         
         modelRunRootDir = new File("/home/niels/Data/operational-output");
     }

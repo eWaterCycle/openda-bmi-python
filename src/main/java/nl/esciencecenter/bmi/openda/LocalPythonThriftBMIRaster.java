@@ -19,6 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 import java.net.ServerSocket;
+import java.util.Arrays;
+
+import javax.swing.event.ListSelectionEvent;
 
 import nl.esciencecenter.bmi.BMIRaster;
 import nl.esciencecenter.bmi.thrift.BmiRasterService;
@@ -78,6 +81,8 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
 
         builder.redirectError(Redirect.INHERIT);
         builder.redirectOutput(Redirect.INHERIT);
+        
+        LOGGER.info("Running command: " + Arrays.toString(builder.command().toArray()));
 
         return builder.start();
     }
