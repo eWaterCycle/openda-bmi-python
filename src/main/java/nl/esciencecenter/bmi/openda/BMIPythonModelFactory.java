@@ -32,9 +32,11 @@ public class BMIPythonModelFactory implements IModelFactory {
     private static int nextModelID = 0;
     
     private static int getNextID() {
+        int result = nextModelID;
+        
         nextModelID += 1;
         
-        return nextModelID;
+        return result;
     }
     
     private String pythonExecutable;
@@ -62,7 +64,8 @@ public class BMIPythonModelFactory implements IModelFactory {
         modelModule = "bmiPcrglobwb";
         modelClass = "BmiPCRGlobWB";
         
-        configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_30min_niels_laptop.ini";
+        //configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_30min_niels_laptop.ini";
+        configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
         
         modelRunRootDir = new File("/home/niels/Data/operational-output");
     }
@@ -82,8 +85,9 @@ public class BMIPythonModelFactory implements IModelFactory {
 
                    modelClass, modelWorkDir);
 
+            String instanceConfigFile = String.format("%s.%02d", configFile, instanceID);
             
-            return new BMIRasterModelInstance(model, modelWorkDir, configFile);
+            return new BMIRasterModelInstance(model, modelWorkDir, instanceConfigFile);
         } catch (Exception e) {
             LOGGER.error("failed to create instance", e);
             return null;

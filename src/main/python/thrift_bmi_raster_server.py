@@ -102,7 +102,7 @@ class RasterModelHandler(Iface):
         Parameters:
          - long_var_name
         """
-        return model.get_value(long_var_name).tostring()
+        return model.get_value(long_var_name).flatten().tostring()
     
     def get_value_at_indices(self, long_var_name, inds):
         """

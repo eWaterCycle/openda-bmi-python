@@ -31,9 +31,11 @@ import org.openda.interfaces.IExchangeItem;
 import org.openda.interfaces.IGeometryInfo;
 import org.openda.interfaces.IPrevExchangeItem;
 import org.openda.interfaces.IQuantityInfo;
+import org.openda.interfaces.IStochVector;
 import org.openda.interfaces.ITimeInfo;
 import org.openda.interfaces.IVector;
 import org.openda.utils.Array;
+import org.openda.utils.StochVector;
 import org.openda.utils.Vector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,9 +47,9 @@ import org.slf4j.LoggerFactory;
  * @author Niels Drost
  */
 public class BMIRasterStateExchangeItem implements IExchangeItem {
-    
+
     private static Logger LOGGER = LoggerFactory.getLogger(BMIRasterStateExchangeItem.class);
-    
+
     private static final long serialVersionUID = 1L;
     private final String variableName;
     private final IPrevExchangeItem.Role role;
@@ -62,8 +64,7 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
      * @param adapter
      * @throws BMIModelException
      */
-    public BMIRasterStateExchangeItem(String variableName, IPrevExchangeItem.Role role, BMIRaster model)
-            throws BMIModelException {
+    public BMIRasterStateExchangeItem(String variableName, IPrevExchangeItem.Role role, BMIRaster model) throws BMIModelException {
         this.variableName = variableName;
         this.role = role;
         this.model = model;
@@ -83,7 +84,7 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
             if (model == null) {
                 throw new NullPointerException("model is null!");
             }
-            
+
             double[] origin = this.model.get_grid_origin(variableName);
             double[] spacing = this.model.get_grid_spacing(variableName);
             int[] shape = this.model.get_grid_shape(variableName);
@@ -92,23 +93,23 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
             double[] latitudes = new double[shape[0]];
             for (int n = 0; n < latitudes.length; n++) {
                 //calculate latitude at center of each cell
-                latitudes[n] = origin[0] + (spacing[0] / 2) + n * spacing[0];
+                latitudes[n] = origin[0] + (spacing[0] / 2) + (n * spacing[0]);
             }
             IArray latitudeArray = new Array(latitudes);
 
             double[] longitudes = new double[shape[1]];
             for (int n = 0; n < longitudes.length; n++) {
-                longitudes[n] = origin[1] + (spacing[1] / 2) + n * spacing[1];
+                longitudes[n] = origin[1] + (spacing[1] / 2) + (n * spacing[1]);
             }
             IArray longitudeArray = new Array(longitudes);
-            
-            int[] latitudeValueIndices = new int[] {0};
-            int[] longitudeValueIndices = new int[] {1};
-            
+
+            int[] latitudeValueIndices = new int[] { 0 };
+            int[] longitudeValueIndices = new int[] { 1 };
+
             IQuantityInfo latitudeQuantityInfo = new QuantityInfo("y coordinate according to model coordinate system", "meter");
             IQuantityInfo longitudeQuantityInfo = new QuantityInfo("x coordinate according to model coordinate system", "meter");
-            return new ArrayGeometryInfo(latitudeArray, latitudeValueIndices, latitudeQuantityInfo, longitudeArray, longitudeValueIndices, longitudeQuantityInfo,
-                    null, null, null, null);
+            return new ArrayGeometryInfo(latitudeArray, latitudeValueIndices, latitudeQuantityInfo, longitudeArray,
+                    longitudeValueIndices, longitudeQuantityInfo, null, null, null, null);
         } catch (BMIModelException e) {
             throw new RuntimeException(e);
         }
@@ -155,7 +156,7 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
     public Object getValues() {
         double[] values = getValuesAsDoubles();
         IVector vector = new Vector(values);
-        //		return new TreeVector(getId(), vector, rowCount, columnCount);
+        //              return new TreeVector(getId(), vector, rowCount, columnCount);
         return vector;
     }
 
@@ -164,6 +165,25 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
      * cells are converted to Double.NaN, because the algorithms cannot cope with inactive grid cells.
      */
     public double[] getValuesAsDoubles() {
+        return getPerturbedValuesAsDoubles();
+    }
+
+    private double[] getPerturbedValuesAsDoubles() {
+        final double stdDev = 0.001;
+        double[] values = getOriginalValuesAsDoubles();
+        double[] stdDevs = new double[values.length];
+        for (int n = 0; n < values.length; n++) {
+            stdDevs[n] = stdDev;
+        }
+
+        IVector mean = new Vector(values);
+        IVector std = new Vector(stdDevs);
+        IStochVector sv = new StochVector(mean, std);
+        IVector perturbedValues = sv.createRealization();
+        return perturbedValues.getValues();
+    }
+
+    private double[] getOriginalValuesAsDoubles() {
         try {
             return model.get_double(variableName);
         } catch (BMIModelException e) {
@@ -176,7 +196,8 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
      * active grid cells.
      */
     public void axpyOnValues(double alpha, double[] axpyValues) {
-        double[] allValues = getValuesAsDoubles();
+        double[] allValues = getOriginalValuesAsDoubles();
+        
         for (int n = 0; n < allValues.length; n++) {
             //for all NaNs results in NaN
             allValues[n] += alpha * axpyValues[n];
@@ -190,7 +211,7 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
      */
     public void multiplyValues(double[] multiplicationFactors) {
 
-        double[] allValues = getValuesAsDoubles();
+        double[] allValues = getOriginalValuesAsDoubles();
         for (int n = 0; n < allValues.length; n++) {
             allValues[n] *= multiplicationFactors[n];
         }
@@ -213,7 +234,7 @@ public class BMIRasterStateExchangeItem implements IExchangeItem {
      */
     public void setValuesAsDoubles(double[] values) {
         LOGGER.info("Setting " + values.length + " values in variable " + variableName);
-        
+
         try {
             model.set_double(variableName, values);
         } catch (BMIModelException e) {
