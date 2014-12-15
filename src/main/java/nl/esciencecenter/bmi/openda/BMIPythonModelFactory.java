@@ -66,7 +66,13 @@ public class BMIPythonModelFactory implements IModelFactory {
         modelClass = "BmiPCRGlobWB";
         
         //configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_30min_niels_laptop.ini";
-        configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
+        //configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
+        configFile = arguments[0];
+        
+        if (configFile == null) {
+            throw new RuntimeException("Configfile not specified!");
+        }
+        
         
         //get list of hosts to start models on from environment
         String hostString = System.getenv("HOSTS");
