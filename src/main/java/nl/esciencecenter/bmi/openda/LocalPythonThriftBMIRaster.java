@@ -45,7 +45,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
     private static final Logger LOGGER = LoggerFactory.getLogger(BMIRasterModelInstance.class);
 
     private static final int MAX_CONNECT_ATTEMPTS = 20;
-    private static final long CONNECT_TIMEOUT = 100; //ms
+    private static final long CONNECT_TIMEOUT = 500; //ms
 
     //Obtain a free port by opening a server socket without explicitly giving the port,
     //asking its port, and closing the server socket again.
