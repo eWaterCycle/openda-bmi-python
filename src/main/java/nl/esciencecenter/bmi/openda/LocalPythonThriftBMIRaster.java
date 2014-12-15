@@ -82,6 +82,8 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
             builder.command().add("ssh");
             builder.command().add(host);
             builder.command().add("PYTHONPATH=" + newPythonPath + ":$PYTHONPATH");
+            builder.command().add("cd");
+            builder.command().add(runDir + ";");
         }
         
         builder.command().add(pythonExecutable);
