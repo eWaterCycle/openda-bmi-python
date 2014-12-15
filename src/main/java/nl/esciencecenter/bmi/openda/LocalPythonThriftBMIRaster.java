@@ -71,16 +71,17 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
 
         String currentPythonPath = builder.environment().get("PYTHONPATH");
 
-        String newPythonPath = modelDir + ":" + currentPythonPath + ":" + generatedPythonCodeDir + ":" + pythonCodeDir;
+        String newPythonPath = modelDir + ":" + generatedPythonCodeDir + ":" + pythonCodeDir;
         
-        builder.environment().put("PYTHONPATH", newPythonPath);
+        builder.environment().put("PYTHONPATH", newPythonPath + ":" + currentPythonPath);
 
-        LOGGER.info("Running with PYTHONPATH: " + newPythonPath);
+        LOGGER.info("Running with PYTHONPATH: " + newPythonPath+ ":" + currentPythonPath);
         
         //this assumes we can login with ssh without a password, or specifying any options
         if (host != null && host != "localhost") {
             builder.command().add("ssh");
             builder.command().add(host);
+            builder.command().add("PYTHONPATH=" + newPythonPath + ":$PYTHONPATH");
         }
         
         builder.command().add(pythonExecutable);
