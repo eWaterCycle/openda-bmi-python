@@ -80,7 +80,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         //this assumes we can login with ssh without a password, or specifying any options
         if (host != null && host != "localhost") {
             builder.command().add("ssh");
-            builder.command().add("host");
+            builder.command().add(host);
         }
         
         builder.command().add(pythonExecutable);
