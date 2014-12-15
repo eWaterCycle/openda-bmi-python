@@ -58,7 +58,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         return result;
     }
 
-    private static Process startModelProcess(int port, String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass, File runDir)
+    private static Process startModelProcess(String host, int port, String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass, File runDir)
             throws IOException {
         ProcessBuilder builder = new ProcessBuilder();
 
@@ -77,6 +77,12 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
 
         LOGGER.info("Running with PYTHONPATH: " + newPythonPath);
         
+        //this assumes we can login with ssh without a password, or specifying any options
+        if (host != null && host != "localhost") {
+            builder.command().add("ssh");
+            builder.command().add("host");
+        }
+        
         builder.command().add(pythonExecutable);
         builder.command().add(pythonMainScript.getAbsolutePath());
         builder.command().add(modelModule);
@@ -92,7 +98,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
     }
 
     //will attempt to connect to the code
-    private static TTransport connectToCode(int port, Process process) throws IOException {
+    private static TTransport connectToCode(String host, int port, Process process) throws IOException {
         for (int i = 0; i < MAX_CONNECT_ATTEMPTS; i++) {
             //first check if the process is still alive
             try {
@@ -105,7 +111,7 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
 
             //then try connecting to the code
             try {
-                TTransport transport = new TSocket("localhost", port);
+                TTransport transport = new TSocket(host, port);
                 transport.open();
                 LOGGER.debug("obtained connection on the " + i + "th attempt");
                 return transport;
@@ -123,13 +129,13 @@ public class LocalPythonThriftBMIRaster extends ThriftBMIRaster {
         throw new IOException("Failed to connect to model");
     }
 
-    public static BMIRaster createModel(String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass, File runDir)
+    public static BMIRaster createModel(String host, String pythonExecutable, File bridgeDir, File modelDir, String modelModule, String modelClass, File runDir)
             throws IOException {
         int port = getFreePort();
 
-        Process process = startModelProcess(port, pythonExecutable, bridgeDir, modelDir, modelModule, modelClass, runDir);
+        Process process = startModelProcess(host, port, pythonExecutable, bridgeDir, modelDir, modelModule, modelClass, runDir);
 
-        TTransport transport = connectToCode(port, process);
+        TTransport transport = connectToCode(host, port, process);
 
         TProtocol protocol = new TBinaryProtocol(transport);
         BmiRasterService.Client client = new BmiRasterService.Client(protocol);

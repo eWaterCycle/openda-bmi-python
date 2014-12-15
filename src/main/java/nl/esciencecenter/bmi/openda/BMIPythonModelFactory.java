@@ -45,6 +45,7 @@ public class BMIPythonModelFactory implements IModelFactory {
     private String modelModule;
     private String modelClass;
     
+    private String[] hosts;
     
     private File modelRunRootDir;
     
@@ -64,8 +65,19 @@ public class BMIPythonModelFactory implements IModelFactory {
         modelModule = "bmiPcrglobwb";
         modelClass = "BmiPCRGlobWB";
         
-        configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_30min_niels_laptop.ini";
-        //configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
+        //configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_30min_niels_laptop.ini";
+        configFile = "/home/niels/workspace/eWaterCycle-operational/pcrglobwb_config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
+        
+        //get list of hosts to start models on from environment
+        String hostString = System.getenv("HOSTS");
+        
+        if (hostString == null || hostString.isEmpty()) {
+            hosts = new String[] {"localhost"};
+        } else {
+            //hosts are seperated by spaces
+            hosts = hostString.split(" ");
+        }
+        
         
         modelRunRootDir = new File("/home/niels/Data/operational-output");
     }
@@ -76,13 +88,15 @@ public class BMIPythonModelFactory implements IModelFactory {
             //ID of this member
             int instanceID = getNextID();
             
+            //we allocate instances to hosts round-robin
+            String host = hosts[instanceID % hosts.length];
+            
             //create a output directory for this member
             String workDir = String.format("work%02d", instanceID);
             File modelWorkDir = new File(modelRunRootDir, workDir);
             modelWorkDir.mkdirs();
             
-            BMIRaster model = LocalPythonThriftBMIRaster.createModel(pythonExecutable, bridgeDir, modelDir, modelModule,
-
+            BMIRaster model = LocalPythonThriftBMIRaster.createModel(host, pythonExecutable, bridgeDir, modelDir, modelModule,
                    modelClass, modelWorkDir);
 
             String instanceConfigFile = String.format("%s.%02d", configFile, instanceID);
