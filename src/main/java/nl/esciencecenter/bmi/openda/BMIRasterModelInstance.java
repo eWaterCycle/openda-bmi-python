@@ -265,15 +265,18 @@ public class BMIRasterModelInstance extends Instance implements IModelInstance, 
 
             IVector result = GeometryUtils.getObservedValuesBilinearInterpolation(observationXCoordinates, observationYCoordinates, modelGeometryInfo, modelValues);
             
+            int errorCount = 0;
             for (int i = 0; i< result.getSize(); i++) {
                 double value = result.getValue(i);
                 
                 if (Double.isNaN(value)) {
-                    //throw new RuntimeException("Model value at Observation is Nan!");
-                    LOGGER.error("Model value at Observation " + i + " is Nan!");
+                    errorCount += 1;
                     result.setValue(i, 0.5);
                 }
             }
+            
+            //throw new RuntimeException("Model value at Observation is Nan!");
+            LOGGER.error("Got " + errorCount + " Nan Values at Model where an observation was present");
             
             return result;
     }
