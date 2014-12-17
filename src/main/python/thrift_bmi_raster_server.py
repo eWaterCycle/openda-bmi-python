@@ -13,6 +13,7 @@ from bmi.thrift.BmiRasterService import Iface
 from bmi.thrift.BmiRasterService import Processor
 from bmi.thrift.ttypes import ModelException, BmiGridType
 
+import os
 import sys
 import signal
 import numpy as np
@@ -190,8 +191,9 @@ if __name__ == '__main__':
     handler = RasterModelHandler(model)
     processor = Processor(handler)
     
+    #transport = TSocket.TServerSocket(host="127.0.0.1",port=sys.argv[3])
     transport = TSocket.TServerSocket(port=sys.argv[3])
-    
+
     tfactory = TTransport.TBufferedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolFactory()
     
