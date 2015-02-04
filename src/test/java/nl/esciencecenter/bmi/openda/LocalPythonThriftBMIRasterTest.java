@@ -44,7 +44,7 @@ public class LocalPythonThriftBMIRasterTest extends IncrementModelTest {
         
         File cwd = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
 
-        return LocalPythonThriftBMIRaster.createModel(null, pythonExecutable, bridgeDir, modelDir, modelModule, modelClass, cwd);
+        return LocalPythonThriftBMIRaster.createModel("localhost", pythonExecutable, bridgeDir, modelDir, modelModule, modelClass, cwd);
 
     }
 
