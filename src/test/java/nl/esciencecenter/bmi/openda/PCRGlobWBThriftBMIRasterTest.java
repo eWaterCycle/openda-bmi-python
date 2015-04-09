@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Random;
 
 import nl.esciencecenter.bmi.BMIModelException;
 import nl.esciencecenter.bmi.BMIRaster;
@@ -35,10 +36,10 @@ import org.junit.Test;
  */
 public class PCRGlobWBThriftBMIRasterTest {
     
-    private static final String iniFile = "/home/niels/workspace/PCR-GLOBWB/config/setup_RhineMeuse_30arcmin_3layers_ndrost.ini";
-    private static int[] shape = new int[] {13, 17};
+    private static final String iniFile = "/home/niels/workspace/PCR-GLOBWB/config/setup_30min_niels_laptop.ini";
+    private static int[] shape = new int[] {18, 36};
     private static int dataSize = shape[0] * shape[1];
-    private static double[] gridSpacing = new double[] {0.5, 0.5};
+    private static double[] gridSpacing = new double[] {0.1, 0.1};
     
     private static String variableName = "top_layer_soil_saturation";
 
@@ -47,10 +48,10 @@ public class PCRGlobWBThriftBMIRasterTest {
         File bridgeDir = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
         File modelDir = new File("/home/niels/workspace/PCR-GLOBWB/model");
         String modelModule = "bmiPcrglobwb";
-        String modelClass = "BmiPCRGlobWB";
+        String modelClass = "ScaledBmiPCRGlobWB";
         File cwd = new File("/home/niels/workspace/eWaterCycle-openda_bmi_python");
 
-        BMIRaster model = LocalPythonThriftBMIRaster.createModel(null, pythonExecutable, bridgeDir, modelDir, modelModule, modelClass, cwd);
+        BMIRaster model = LocalPythonThriftBMIRaster.createModel("localhost", pythonExecutable, bridgeDir, modelDir, modelModule, modelClass, cwd);
 
         model.initialize(iniFile);
 
@@ -75,6 +76,8 @@ public class PCRGlobWBThriftBMIRasterTest {
 
         double[] result = model.get_double("top_layer_soil_saturation");
 
+        System.err.println(Arrays.toString(result));
+        
         model.finalize_model();
         
         assertEquals("result should have the correct amount of elements", dataSize, result.length);
@@ -122,9 +125,13 @@ public class PCRGlobWBThriftBMIRasterTest {
         assertEquals("grid is expected to be two dimensional", 2, shape.length);
 
         int dataSize = shape[0] * shape[1];
-
+        
         double[] data = new double[dataSize];
 
+        for(int i = 0; i < dataSize; i++) {
+            data[i] = 0.5;
+        }
+        
         model.set_double("top_layer_soil_saturation", data);
 
         model.finalize_model();
